@@ -30,6 +30,40 @@ To prevent XGBoost's strict label constraints from breaking the Streamlit UI rou
 *   **UI/Frontend:** Streamlit
 *   **Paradigm:** AI Orchestration & Prompt Engineering
 
+
+## 🚀 How to Run (Local Setup)
+
+To run this project locally, follow these straightforward steps:
+
+### 1. Prerequisites
+Ensure you have **Python 3.8+** installed on your machine. 
+
+### 2. Installation
+Clone this repository (or download the files into a single project directory) and install the required dependencies:
+bash:
+"git clone <your-repo-link-here>
+cd ؤ
+pip install -r requirements.txt"
+(Note: Ensure your requirements.txt includes pandas, numpy, scikit-learn, xgboost, and streamlit).
+
+3. Execution Options
+Option A: Run the Interface directly (Using Pre-trained Models)
+If the models/ folder already contains the .pkl files, simply launch the Streamlit app:
+
+Bash
+streamlit run app.py
+Option B: Retrain the Models from Scratch
+If you want to process the raw data and generate new models before launching:
+
+Bash
+# 1. Run the ETL pipeline to generate features
+python src/etl.py
+
+# 2. Train the XGBoost Classifier and Regressors
+python src/train.py
+
+# 3. Launch the Streamlit UI
+streamlit run app.py
 ---
 
 # 🏆 متنبئ مباريات كأس العالم بالذكاء الاصطناعي 
@@ -47,4 +81,38 @@ To prevent XGBoost's strict label constraints from breaking the Streamlit UI rou
 
 *   **الجسر المنطقي (Custom Wrapper):** تمت كتابة غلاف مخصص لخوارزمية `XGBoost` للتحايل على قيود تصنيف البيانات، مما يضمن خروج النتائج بصيغة تدعم خوارزمية العرض في واجهة Streamlit.
 *   **معامل الاضمحلال الزمني:** تطبيق معادلة رياضية تعطي وزناً أعلى للمباريات الحديثة، مما يجبر النموذج على استيعاب التكتيكات الكروية المعاصرة.
-*   **توقع دقيق للأهداف (Regressors):** استخدام نماذج انحدار منفصلة لتوقع أهداف المضيف والضيف، مما حقق نسبة خطأ (MAE) تقل عن هدف واحد للمباراة.
+*   **توقع دقيق للأهداف (Regressors):** استخدام نماذج انحدار منفصلة لتوقع أهداف المضيف والضيف، مما حقق نسبة خطأ  (MAE) تقل عن هدف واحد للمباراة.
+
+## 🚀 طريقة التشغيل (الاستخدام المحلي)
+
+لتشغيل هذا المشروع على جهازك الشخصي، اتبع الخطوات التالية:
+
+### 1. المتطلبات الأساسية
+تأكد من تثبيت **Python 3.8+** على جهازك.
+
+### 2. التثبيت
+قم بتحميل ملفات المشروع في مجلد واحد (أو استنسخ المستودع)، ثم قم بتثبيت المكتبات اللازمة عبر موجه الأوامر (Terminal):
+bash:
+git clone <your-repo-link-here>
+cd wc2026-predictor
+pip install -r requirements.txt"
+(ملاحظة: تأكد من وجود ملف requirements.txt يحتوي على المكتبات الأساسية مثل pandas, numpy, scikit-learn, xgboost, streamlit).
+
+3. خيارات التشغيل
+الخيار الأول: تشغيل الواجهة مباشرة (باستخدام النماذج الجاهزة)
+إذا كان مجلد models/ يحتوي مسبقاً على النماذج المدربة (.pkl)، يمكنك تشغيل واجهة الاستخدام مباشرة:
+
+Bash
+streamlit run app.py
+الخيار الثاني: إعادة تدريب النماذج من الصفر
+إذا كنت ترغب في معالجة البيانات الخام وتدريب النماذج من جديد قبل التشغيل:
+
+Bash
+# 1. تشغيل خط معالجة البيانات (ETL)
+python src/etl.py
+
+# 2. تدريب نماذج XGBoost
+python src/train.py
+
+# 3. تشغيل واجهة Streamlit
+streamlit run app.py
