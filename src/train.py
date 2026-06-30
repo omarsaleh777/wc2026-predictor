@@ -187,6 +187,27 @@ def run_training():
         json.dump(list(X.columns), f)
     print(f"\n  Saved feature columns to {FEATURE_COLUMNS_PATH}")
 
+    print("\n━━━ Saving Metrics ━━━")
+    # Feature Importance for Classifier
+    importance = clf.feature_importances_
+    fi_dict = {col: float(imp) for col, imp in zip(list(X.columns), importance)}
+    
+    metrics = {
+        "accuracy": float(acc),
+        "home_goals_mae": float(hg_mae),
+        "home_goals_rmse": float(hg_rmse),
+        "away_goals_mae": float(ag_mae),
+        "away_goals_rmse": float(ag_rmse),
+        "train_size": int(len(X_train)),
+        "test_size": int(len(X_test)),
+        "feature_importance": fi_dict
+    }
+    
+    metrics_path = os.path.join(os.path.dirname(FEATURE_COLUMNS_PATH), "metrics.json")
+    with open(metrics_path, "w") as f:
+        json.dump(metrics, f, indent=4)
+    print(f"  Saved model metrics to {metrics_path}")
+
     print("\n━━━ Summary ━━━")
     print("All models and feature columns saved successfully.")
     print(f"  Training set size: {len(X_train)} | Test set size: {len(X_test)}")

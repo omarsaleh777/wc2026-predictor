@@ -45,8 +45,8 @@ from src.bracket_logic import (
 )
 from src.predict import predict_match, load_models
 import update_data
-
-
+import bracket_component
+from src import bracket_builder
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # Page Config
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -59,6 +59,7 @@ st.set_page_config(
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # Custom CSS
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
@@ -446,30 +447,77 @@ with tab_groups:
 # TAB 3: BRACKET
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 with tab_bracket:
-    st.markdown("### Tournament Bracket")
-    st.caption("Bracket resolves automatically as group stage results are submitted.")
+    st.markdown("### 🏆 Knockout Stage Bracket")
+    
+    # 1. Build DataFrame from Standings
+    if "bracket_data" not in st.session_state:
+        if os.path.exists("bracket_state.json"):
+            with open("bracket_state.json", "r") as f:
+                st.session_state.bracket_data = json.load(f)
+        else:
+            standings = load_standings()
+        rows = []
+        for group_name, teams in standings.items():
+            if teams:
+                sorted_teams = sort_group(teams)
+                for team_name, stats in sorted_teams:
+                    rows.append({
+                        "Group": group_name,
+                        "Team": team_name,
+                        "Pts": stats["pts"],
+                        "GD": stats["gd"],
+                        "GF": stats["gf"]
+                    })
+        
+        df = pd.DataFrame(rows)
+        
+        if not df.empty:
+            if "resolved_matchups" not in st.session_state:
+                st.session_state.resolved_matchups = bracket_builder.resolve_qualified_teams(df)
+            
+            with st.expander("⚙️ Manual Matchup Override (Pre-Bracket Generation)", expanded=True):
+                st.info("Review and manually swap teams before running the ML predictions.")
+                
+                # Extract all unique teams for the dropdowns
+                all_teams_list = sorted(df["Team"].unique().tolist())
+                
+                # Configure the data editor columns to use Selectbox
+                df_matchups = pd.DataFrame(st.session_state.resolved_matchups)
+                edited_df = st.data_editor(
+                    df_matchups, 
+                    hide_index=True, 
+                    use_container_width=True,
+                    column_config={
+                        "home": st.column_config.SelectboxColumn("Home Team", options=all_teams_list, required=True),
+                        "away": st.column_config.SelectboxColumn("Away Team", options=all_teams_list, required=True),
+                        "match_id": st.column_config.TextColumn("Match ID", disabled=True)
+                    }
+                )
+                
+                if st.button("Generate Bracket & Run Predictions", type="primary"):
+                    st.session_state.resolved_matchups = edited_df.to_dict('records')
+                    st.session_state.bracket_data = bracket_builder.generate_bracket_data(
+                        st.session_state.resolved_matchups, 
+                        historical_df, 
+                        models
+                    )
+                    with open("bracket_state.json", "w") as f:
+                        json.dump(st.session_state.bracket_data, f)
+                    st.rerun()
+        else:
+            st.warning("Group stage not complete. Using fallback seeding.")
+            # Fallback
+            st.session_state.bracket_data = bracket_component.build_initial_bracket()
 
-    # Show completed results
-    completed = update_data.get_completed_results()
-    if len(completed) > 0:
-        st.markdown("#### Completed Matches")
-        display_completed = completed[
-            ["date", "home_team", "away_team", "home_score", "away_score", "stage"]
-        ].copy()
-        display_completed.columns = ["Date", "Home", "Away", "H", "A", "Stage"]
-        st.dataframe(display_completed, use_container_width=True, hide_index=True)
-    else:
-        st.info(
-            "No WC 2026 results submitted yet. Use the sidebar to submit match results "
-            "and watch the bracket unfold!"
-        )
-
-    # Show stage-by-stage structure
-    st.markdown("#### Knockout Stage Structure")
-    for stage in KNOCKOUT_STAGES:
-        with st.expander(f"\U0001F3C6 {stage}", expanded=False):
-            st.markdown(f"Fixtures for **{stage}** will appear here as groups complete and teams advance.")
-            st.markdown("*Submit group stage results via the sidebar to resolve knockout fixtures.*")
+    if "bracket_data" in st.session_state:
+        if st.button("Reset Bracket (Clear Saves)"):
+            if os.path.exists("bracket_state.json"):
+                os.remove("bracket_state.json")
+            del st.session_state.bracket_data
+            st.rerun()
+            
+        bracket_component.render_data_entry_ui(st.session_state.bracket_data, historical_df, models)
+        bracket_component.render_bracket(st.session_state.bracket_data)
 
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

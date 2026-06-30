@@ -1,505 +1,505 @@
 {
     "A": {
         "Mexico": {
-            "played": 1,
-            "won": 1,
+            "played": 3,
+            "won": 3,
             "drawn": 0,
             "lost": 0,
-            "gf": 2,
+            "gf": 6,
             "ga": 0,
-            "gd": 2,
-            "pts": 3
+            "gd": 6,
+            "pts": 9
         },
         "South Africa": {
-            "played": 2,
-            "won": 0,
-            "drawn": 1,
-            "lost": 1,
-            "gf": 1,
-            "ga": 3,
-            "gd": -2,
-            "pts": 1
-        },
-        "South Korea": {
-            "played": 1,
+            "played": 3,
             "won": 1,
-            "drawn": 0,
-            "lost": 0,
-            "gf": 2,
-            "ga": 1,
-            "gd": 1,
-            "pts": 3
-        },
-        "Czechia": {
-            "played": 2,
-            "won": 0,
             "drawn": 1,
             "lost": 1,
             "gf": 2,
             "ga": 3,
             "gd": -1,
+            "pts": 4
+        },
+        "South Korea": {
+            "played": 3,
+            "won": 1,
+            "drawn": 0,
+            "lost": 2,
+            "gf": 2,
+            "ga": 3,
+            "gd": -1,
+            "pts": 3
+        },
+        "Czechia": {
+            "played": 3,
+            "won": 0,
+            "drawn": 1,
+            "lost": 2,
+            "gf": 2,
+            "ga": 6,
+            "gd": -4,
             "pts": 1
         }
     },
     "B": {
         "Canada": {
-            "played": 2,
+            "played": 3,
             "won": 1,
+            "drawn": 1,
+            "lost": 1,
+            "gf": 8,
+            "ga": 3,
+            "gd": 5,
+            "pts": 4
+        },
+        "Bosnia and Herzegovina": {
+            "played": 3,
+            "won": 1,
+            "drawn": 2,
+            "lost": 0,
+            "gf": 5,
+            "ga": 3,
+            "gd": 2,
+            "pts": 5
+        },
+        "Qatar": {
+            "played": 3,
+            "won": 0,
+            "drawn": 1,
+            "lost": 2,
+            "gf": 2,
+            "ga": 10,
+            "gd": -8,
+            "pts": 1
+        },
+        "Switzerland": {
+            "played": 3,
+            "won": 1,
+            "drawn": 2,
+            "lost": 0,
+            "gf": 4,
+            "ga": 3,
+            "gd": 1,
+            "pts": 5
+        }
+    },
+    "C": {
+        "Brazil": {
+            "played": 3,
+            "won": 2,
             "drawn": 1,
             "lost": 0,
             "gf": 7,
             "ga": 1,
             "gd": 6,
-            "pts": 4
-        },
-        "Bosnia and Herzegovina": {
-            "played": 2,
-            "won": 0,
-            "drawn": 2,
-            "lost": 0,
-            "gf": 2,
-            "ga": 2,
-            "gd": 0,
-            "pts": 2
-        },
-        "Qatar": {
-            "played": 2,
-            "won": 0,
-            "drawn": 1,
-            "lost": 1,
-            "gf": 1,
-            "ga": 7,
-            "gd": -6,
-            "pts": 1
-        },
-        "Switzerland": {
-            "played": 2,
-            "won": 0,
-            "drawn": 2,
-            "lost": 0,
-            "gf": 2,
-            "ga": 2,
-            "gd": 0,
-            "pts": 2
-        }
-    },
-    "C": {
-        "Brazil": {
-            "played": 1,
-            "won": 0,
-            "drawn": 1,
-            "lost": 0,
-            "gf": 1,
-            "ga": 1,
-            "gd": 0,
-            "pts": 1
+            "pts": 7
         },
         "Morocco": {
-            "played": 1,
-            "won": 0,
+            "played": 3,
+            "won": 2,
             "drawn": 1,
             "lost": 0,
-            "gf": 1,
-            "ga": 1,
-            "gd": 0,
-            "pts": 1
+            "gf": 6,
+            "ga": 3,
+            "gd": 3,
+            "pts": 7
         },
         "Haiti": {
-            "played": 1,
+            "played": 3,
             "won": 0,
             "drawn": 0,
-            "lost": 1,
-            "gf": 0,
-            "ga": 1,
-            "gd": -1,
+            "lost": 3,
+            "gf": 2,
+            "ga": 8,
+            "gd": -6,
             "pts": 0
         },
         "Scotland": {
-            "played": 1,
+            "played": 3,
             "won": 1,
             "drawn": 0,
-            "lost": 0,
+            "lost": 2,
             "gf": 1,
-            "ga": 0,
-            "gd": 1,
+            "ga": 4,
+            "gd": -3,
             "pts": 3
         }
     },
     "D": {
         "USA": {
-            "played": 1,
-            "won": 1,
+            "played": 3,
+            "won": 2,
             "drawn": 0,
-            "lost": 0,
-            "gf": 4,
-            "ga": 1,
-            "gd": 3,
-            "pts": 3
+            "lost": 1,
+            "gf": 8,
+            "ga": 4,
+            "gd": 4,
+            "pts": 6
         },
         "Paraguay": {
-            "played": 1,
-            "won": 0,
-            "drawn": 0,
+            "played": 3,
+            "won": 1,
+            "drawn": 1,
             "lost": 1,
-            "gf": 1,
+            "gf": 2,
             "ga": 4,
-            "gd": -3,
-            "pts": 0
+            "gd": -2,
+            "pts": 4
         },
         "Australia": {
-            "played": 1,
+            "played": 3,
             "won": 1,
-            "drawn": 0,
-            "lost": 0,
+            "drawn": 1,
+            "lost": 1,
             "gf": 2,
-            "ga": 0,
-            "gd": 2,
-            "pts": 3
+            "ga": 2,
+            "gd": 0,
+            "pts": 4
         },
         "Turkey": {
-            "played": 1,
-            "won": 0,
+            "played": 3,
+            "won": 1,
             "drawn": 0,
-            "lost": 1,
-            "gf": 0,
-            "ga": 2,
+            "lost": 2,
+            "gf": 3,
+            "ga": 5,
             "gd": -2,
-            "pts": 0
+            "pts": 3
         }
     },
     "E": {
         "Germany": {
-            "played": 1,
-            "won": 1,
+            "played": 3,
+            "won": 2,
             "drawn": 0,
-            "lost": 0,
-            "gf": 7,
-            "ga": 1,
+            "lost": 1,
+            "gf": 10,
+            "ga": 4,
             "gd": 6,
-            "pts": 3
+            "pts": 6
         },
         "Cura\u00e7ao": {
-            "played": 1,
+            "played": 3,
             "won": 0,
-            "drawn": 0,
-            "lost": 1,
+            "drawn": 1,
+            "lost": 2,
             "gf": 1,
-            "ga": 7,
-            "gd": -6,
-            "pts": 0
+            "ga": 9,
+            "gd": -8,
+            "pts": 1
         },
         "Ivory Coast": {
-            "played": 1,
-            "won": 1,
-            "drawn": 0,
-            "lost": 0,
-            "gf": 1,
-            "ga": 0,
-            "gd": 1,
-            "pts": 3
-        },
-        "Ecuador": {
-            "played": 1,
-            "won": 0,
+            "played": 3,
+            "won": 2,
             "drawn": 0,
             "lost": 1,
-            "gf": 0,
-            "ga": 1,
-            "gd": -1,
-            "pts": 0
+            "gf": 4,
+            "ga": 2,
+            "gd": 2,
+            "pts": 6
+        },
+        "Ecuador": {
+            "played": 3,
+            "won": 1,
+            "drawn": 1,
+            "lost": 1,
+            "gf": 2,
+            "ga": 2,
+            "gd": 0,
+            "pts": 4
         }
     },
     "F": {
         "Netherlands": {
-            "played": 1,
-            "won": 0,
+            "played": 3,
+            "won": 2,
             "drawn": 1,
             "lost": 0,
-            "gf": 2,
-            "ga": 2,
-            "gd": 0,
-            "pts": 1
+            "gf": 10,
+            "ga": 4,
+            "gd": 6,
+            "pts": 7
         },
         "Japan": {
-            "played": 1,
-            "won": 0,
-            "drawn": 1,
+            "played": 3,
+            "won": 1,
+            "drawn": 2,
             "lost": 0,
-            "gf": 2,
-            "ga": 2,
-            "gd": 0,
-            "pts": 1
+            "gf": 7,
+            "ga": 3,
+            "gd": 4,
+            "pts": 5
         },
         "Sweden": {
-            "played": 1,
+            "played": 3,
             "won": 1,
-            "drawn": 0,
-            "lost": 0,
-            "gf": 5,
-            "ga": 1,
-            "gd": 4,
-            "pts": 3
+            "drawn": 1,
+            "lost": 1,
+            "gf": 7,
+            "ga": 7,
+            "gd": 0,
+            "pts": 4
         },
         "Tunisia": {
-            "played": 1,
+            "played": 3,
             "won": 0,
             "drawn": 0,
-            "lost": 1,
-            "gf": 1,
-            "ga": 5,
-            "gd": -4,
+            "lost": 3,
+            "gf": 2,
+            "ga": 12,
+            "gd": -10,
             "pts": 0
         }
     },
     "G": {
         "Belgium": {
-            "played": 1,
-            "won": 0,
-            "drawn": 1,
+            "played": 3,
+            "won": 1,
+            "drawn": 2,
             "lost": 0,
-            "gf": 1,
-            "ga": 1,
-            "gd": 0,
-            "pts": 1
+            "gf": 6,
+            "ga": 2,
+            "gd": 4,
+            "pts": 5
         },
         "Egypt": {
-            "played": 1,
-            "won": 0,
-            "drawn": 1,
+            "played": 3,
+            "won": 1,
+            "drawn": 2,
             "lost": 0,
-            "gf": 1,
-            "ga": 1,
-            "gd": 0,
-            "pts": 1
+            "gf": 5,
+            "ga": 3,
+            "gd": 2,
+            "pts": 5
         },
         "Iran": {
-            "played": 1,
+            "played": 3,
             "won": 0,
-            "drawn": 1,
+            "drawn": 3,
             "lost": 0,
-            "gf": 2,
-            "ga": 2,
+            "gf": 3,
+            "ga": 3,
             "gd": 0,
-            "pts": 1
+            "pts": 3
         },
         "New Zealand": {
-            "played": 1,
+            "played": 3,
             "won": 0,
             "drawn": 1,
-            "lost": 0,
-            "gf": 2,
-            "ga": 2,
-            "gd": 0,
+            "lost": 2,
+            "gf": 4,
+            "ga": 10,
+            "gd": -6,
             "pts": 1
         }
     },
     "H": {
         "Spain": {
-            "played": 1,
-            "won": 0,
+            "played": 3,
+            "won": 2,
             "drawn": 1,
             "lost": 0,
-            "gf": 0,
+            "gf": 5,
             "ga": 0,
-            "gd": 0,
-            "pts": 1
+            "gd": 5,
+            "pts": 7
         },
         "Cape Verde": {
-            "played": 1,
+            "played": 3,
             "won": 0,
-            "drawn": 1,
+            "drawn": 3,
             "lost": 0,
-            "gf": 0,
-            "ga": 0,
+            "gf": 2,
+            "ga": 2,
             "gd": 0,
-            "pts": 1
+            "pts": 3
         },
         "Saudi Arabia": {
-            "played": 1,
+            "played": 3,
             "won": 0,
-            "drawn": 1,
-            "lost": 0,
+            "drawn": 2,
+            "lost": 1,
             "gf": 1,
-            "ga": 1,
-            "gd": 0,
-            "pts": 1
+            "ga": 5,
+            "gd": -4,
+            "pts": 2
         },
         "Uruguay": {
-            "played": 1,
+            "played": 3,
             "won": 0,
-            "drawn": 1,
-            "lost": 0,
-            "gf": 1,
-            "ga": 1,
-            "gd": 0,
-            "pts": 1
+            "drawn": 2,
+            "lost": 1,
+            "gf": 3,
+            "ga": 4,
+            "gd": -1,
+            "pts": 2
         }
     },
     "I": {
         "France": {
-            "played": 1,
-            "won": 1,
+            "played": 3,
+            "won": 3,
             "drawn": 0,
             "lost": 0,
-            "gf": 3,
-            "ga": 1,
+            "gf": 10,
+            "ga": 2,
+            "gd": 8,
+            "pts": 9
+        },
+        "Senegal": {
+            "played": 3,
+            "won": 1,
+            "drawn": 0,
+            "lost": 2,
+            "gf": 8,
+            "ga": 6,
             "gd": 2,
             "pts": 3
         },
-        "Senegal": {
-            "played": 1,
-            "won": 0,
-            "drawn": 0,
-            "lost": 1,
-            "gf": 1,
-            "ga": 3,
-            "gd": -2,
-            "pts": 0
-        },
         "Iraq": {
-            "played": 1,
+            "played": 3,
             "won": 0,
             "drawn": 0,
-            "lost": 1,
+            "lost": 3,
             "gf": 1,
-            "ga": 4,
-            "gd": -3,
+            "ga": 12,
+            "gd": -11,
             "pts": 0
         },
         "Norway": {
-            "played": 1,
-            "won": 1,
+            "played": 3,
+            "won": 2,
             "drawn": 0,
-            "lost": 0,
-            "gf": 4,
-            "ga": 1,
-            "gd": 3,
-            "pts": 3
+            "lost": 1,
+            "gf": 8,
+            "ga": 7,
+            "gd": 1,
+            "pts": 6
         }
     },
     "J": {
         "Argentina": {
-            "played": 1,
-            "won": 1,
+            "played": 3,
+            "won": 3,
             "drawn": 0,
             "lost": 0,
-            "gf": 3,
-            "ga": 0,
-            "gd": 3,
-            "pts": 3
+            "gf": 8,
+            "ga": 1,
+            "gd": 7,
+            "pts": 9
         },
         "Algeria": {
-            "played": 1,
-            "won": 0,
-            "drawn": 0,
+            "played": 3,
+            "won": 1,
+            "drawn": 1,
             "lost": 1,
-            "gf": 0,
-            "ga": 3,
-            "gd": -3,
-            "pts": 0
+            "gf": 5,
+            "ga": 7,
+            "gd": -2,
+            "pts": 4
         },
         "Austria": {
-            "played": 1,
+            "played": 3,
             "won": 1,
-            "drawn": 0,
-            "lost": 0,
-            "gf": 3,
-            "ga": 1,
-            "gd": 2,
-            "pts": 3
+            "drawn": 1,
+            "lost": 1,
+            "gf": 6,
+            "ga": 6,
+            "gd": 0,
+            "pts": 4
         },
         "Jordan": {
-            "played": 1,
+            "played": 3,
             "won": 0,
             "drawn": 0,
-            "lost": 1,
-            "gf": 1,
-            "ga": 3,
-            "gd": -2,
+            "lost": 3,
+            "gf": 3,
+            "ga": 8,
+            "gd": -5,
             "pts": 0
         }
     },
     "K": {
         "Portugal": {
-            "played": 1,
-            "won": 0,
-            "drawn": 1,
+            "played": 3,
+            "won": 1,
+            "drawn": 2,
             "lost": 0,
-            "gf": 1,
+            "gf": 6,
             "ga": 1,
-            "gd": 0,
-            "pts": 1
+            "gd": 5,
+            "pts": 5
         },
         "DR Congo": {
-            "played": 1,
-            "won": 0,
+            "played": 3,
+            "won": 1,
             "drawn": 1,
-            "lost": 0,
-            "gf": 1,
-            "ga": 1,
-            "gd": 0,
-            "pts": 1
+            "lost": 1,
+            "gf": 4,
+            "ga": 3,
+            "gd": 1,
+            "pts": 4
         },
         "Uzbekistan": {
-            "played": 1,
+            "played": 3,
             "won": 0,
             "drawn": 0,
-            "lost": 1,
-            "gf": 1,
-            "ga": 3,
-            "gd": -2,
+            "lost": 3,
+            "gf": 2,
+            "ga": 11,
+            "gd": -9,
             "pts": 0
         },
         "Colombia": {
-            "played": 1,
-            "won": 1,
-            "drawn": 0,
+            "played": 3,
+            "won": 2,
+            "drawn": 1,
             "lost": 0,
-            "gf": 3,
+            "gf": 4,
             "ga": 1,
-            "gd": 2,
-            "pts": 3
+            "gd": 3,
+            "pts": 7
         }
     },
     "L": {
         "England": {
-            "played": 1,
-            "won": 1,
-            "drawn": 0,
+            "played": 3,
+            "won": 2,
+            "drawn": 1,
             "lost": 0,
-            "gf": 4,
+            "gf": 6,
             "ga": 2,
-            "gd": 2,
-            "pts": 3
+            "gd": 4,
+            "pts": 7
         },
         "Croatia": {
-            "played": 1,
-            "won": 0,
+            "played": 3,
+            "won": 2,
             "drawn": 0,
             "lost": 1,
-            "gf": 2,
-            "ga": 4,
-            "gd": -2,
-            "pts": 0
+            "gf": 5,
+            "ga": 5,
+            "gd": 0,
+            "pts": 6
         },
         "Ghana": {
-            "played": 1,
+            "played": 3,
             "won": 1,
-            "drawn": 0,
-            "lost": 0,
-            "gf": 1,
-            "ga": 0,
-            "gd": 1,
-            "pts": 3
+            "drawn": 1,
+            "lost": 1,
+            "gf": 2,
+            "ga": 2,
+            "gd": 0,
+            "pts": 4
         },
         "Panama": {
-            "played": 1,
+            "played": 3,
             "won": 0,
             "drawn": 0,
-            "lost": 1,
+            "lost": 3,
             "gf": 0,
-            "ga": 1,
-            "gd": -1,
+            "ga": 4,
+            "gd": -4,
             "pts": 0
         }
     }

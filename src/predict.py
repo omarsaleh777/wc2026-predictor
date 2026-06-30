@@ -396,13 +396,13 @@ def predict_match(home_team, away_team, historical_df, models=None):
     reasoning = get_ai_reasoning(home_team, away_team, X_fwd, feature_cols)
 
     return {
-        "home_team": home_team,
-        "away_team": away_team,
-        "home_goals": home_goals,
-        "away_goals": away_goals,
-        "home_win_pct": round(home_win_pct, 1),
-        "draw_pct": round(draw_pct, 1),
-        "away_win_pct": round(away_win_pct, 1),
-        "warning": warning_msg,
-        "reasoning": reasoning,
+        "home_team": str(home_team),
+        "away_team": str(away_team),
+        "home_goals": int(home_goals),
+        "away_goals": int(away_goals),
+        "home_win_pct": float(round(home_win_pct, 1)),
+        "draw_pct": float(round(draw_pct, 1)),
+        "away_win_pct": float(round(away_win_pct, 1)),
+        "warning": str(warning_msg) if warning_msg else None,
+        "reasoning": str(reasoning),
     }

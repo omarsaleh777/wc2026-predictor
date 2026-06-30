@@ -26,3 +26,48 @@ date,home_team,away_team,home_score,away_score,tournament,city,country,neutral,g
 2026-06-19,Switzerland,Bosnia and Herzegovina,1,1,FIFA World Cup,,,True,B,Group Stage
 2026-06-19,Czechia,South Africa,1,1,FIFA World Cup,,,True,A,Group Stage
 2026-06-19,Qatar,Canada,0,6,FIFA World Cup,,,True,B,Group Stage
+2026-06-19,Mexico,South Korea,1,0,FIFA World Cup,,,True,A,Group Stage
+2026-06-20,USA,Australia,2,0,FIFA World Cup,,,True,D,Group Stage
+2026-06-20,Morocco,Scotland,1,0,FIFA World Cup,,,True,C,Group Stage
+2026-06-20,Brazil,Haiti,3,0,FIFA World Cup,,,True,C,Group Stage
+2026-06-20,Turkey,Paraguay,0,1,FIFA World Cup,,,True,D,Group Stage
+2026-06-20,Netherlands,Sweden,5,1,FIFA World Cup,,,True,F,Group Stage
+2026-06-20,Germany,Ivory Coast,2,1,FIFA World Cup,,,True,E,Group Stage
+2026-06-21,Ecuador,Curaçao,0,0,FIFA World Cup,,,True,E,Group Stage
+2026-06-21,Japan,Tunisia,4,0,FIFA World Cup,,,True,F,Group Stage
+2026-06-21,Saudi Arabia,Spain,0,4,FIFA World Cup,,,True,H,Group Stage
+2026-06-22,Iran,Belgium,0,0,FIFA World Cup,,,True,G,Group Stage
+2026-06-22,Cape Verde,Uruguay,2,2,FIFA World Cup,,,True,H,Group Stage
+2026-06-22,Egypt,New Zealand,3,1,FIFA World Cup,,,True,G,Group Stage
+2026-06-22,Austria,Argentina,0,2,FIFA World Cup,,,True,J,Group Stage
+2026-06-23,Iraq,France,0,3,FIFA World Cup,,,True,I,Group Stage
+2026-06-23,Senegal,Norway,2,3,FIFA World Cup,,,True,I,Group Stage
+2026-06-23,Algeria,Jordan,2,1,FIFA World Cup,,,True,J,Group Stage
+2026-06-23,Portugal,Uzbekistan,5,0,FIFA World Cup,,,True,K,Group Stage
+2026-06-23,England,Ghana,0,0,FIFA World Cup,,,True,L,Group Stage
+2026-06-24,Croatia,Panama,1,0,FIFA World Cup,,,True,L,Group Stage
+2026-06-24,DR Congo,Colombia,0,1,FIFA World Cup,,,True,K,Group Stage
+2026-06-24,Canada,Switzerland,1,2,FIFA World Cup,,,True,B,Group Stage
+2026-06-24,Qatar,Bosnia and Herzegovina,1,3,FIFA World Cup,,,True,B,Group Stage
+2026-06-25,Brazil,Scotland,3,0,FIFA World Cup,,,True,C,Group Stage
+2026-06-25,Haiti,Morocco,2,4,FIFA World Cup,,,True,C,Group Stage
+2026-06-25,Mexico,Czechia,3,0,FIFA World Cup,,,True,A,Group Stage
+2026-06-25,South Korea,South Africa,0,1,FIFA World Cup,,,True,A,Group Stage
+2026-06-25,Ivory Coast,Curaçao,2,0,FIFA World Cup,,,True,E,Group Stage
+2026-06-25,Germany,Ecuador,1,2,FIFA World Cup,,,True,E,Group Stage
+2026-06-26,France,Norway,4,1,FIFA World Cup,,,True,I,Group Stage
+2026-06-26,Sweden,Japan,1,1,FIFA World Cup,,,True,F,Group Stage
+2026-06-26,Netherlands,Tunisia,3,1,FIFA World Cup,,,True,F,Group Stage
+2026-06-26,Australia,Paraguay,0,0,FIFA World Cup,,,True,D,Group Stage
+2026-06-26,Turkey,USA,3,2,FIFA World Cup,,,True,D,Group Stage
+2026-06-26,Senegal,Iraq,5,0,FIFA World Cup,,,True,I,Group Stage
+2026-06-27,Saudi Arabia,Cape Verde,0,0,FIFA World Cup,,,True,H,Group Stage
+2026-06-27,Spain,Uruguay,1,0,FIFA World Cup,,,True,H,Group Stage
+2026-06-27,Egypt,Iran,1,1,FIFA World Cup,,,True,G,Group Stage
+2026-06-27,Belgium,New Zealand,5,1,FIFA World Cup,,,True,G,Group Stage
+2026-06-28,England,Panama,2,0,FIFA World Cup,,,True,L,Group Stage
+2026-06-28,Ghana,Croatia,1,2,FIFA World Cup,,,True,L,Group Stage
+2026-06-28,Portugal,Colombia,0,0,FIFA World Cup,,,True,K,Group Stage
+2026-06-28,Uzbekistan,DR Congo,1,3,FIFA World Cup,,,True,K,Group Stage
+2026-06-28,Argentina,Jordan,3,1,FIFA World Cup,,,True,J,Group Stage
+2026-06-28,Austria,Algeria,3,3,FIFA World Cup,,,True,J,Group Stage
