@@ -248,12 +248,13 @@ st.divider()
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # Tabs
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-tab_predict, tab_groups, tab_bracket, tab_data, tab_catchup = st.tabs([
+tab_predict, tab_groups, tab_bracket, tab_data, tab_catchup, tab_analytics = st.tabs([
     "⚽ Predict",
     "📊 Group Standings",
     "🏆 Bracket",
     "📥 Data Management",
-    "⚡ Live Catch-Up"
+    "⚡ Live Catch-Up",
+    "📈 Model Analytics",
 ])
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1022,3 +1023,208 @@ with st.sidebar:
 
     st.divider()
     st.caption("Predictions are statistical estimates. Not for betting.")
+
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# TAB 6: MODEL ANALYTICS
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+with tab_analytics:
+    st.header("📈 Model Analytics & Evaluation")
+    st.caption(
+        "Live evaluation of the XGBoost classifier and goal regressors. "
+        "Metrics are computed on the 20% held-out test set using the latest saved models. "
+        "Click **Retrain Model on All Data** (Bracket tab) then revisit this page to see updated metrics."
+    )
+
+    @st.cache_data(ttl=120)  # 2-min TTL — auto-refreshes after a retrain
+    def load_evaluation():
+        from src.evaluate import evaluate_model_performance
+        return evaluate_model_performance()
+
+    try:
+        ev = load_evaluation()
+    except FileNotFoundError as _e:
+        st.error(f"Cannot evaluate: {_e}")
+        st.stop()
+    except Exception as _e:
+        st.error(f"Evaluation failed: {_e}")
+        st.stop()
+
+    cm_data  = ev["classifier_metrics"]
+    fi_df    = ev["feature_importance"]
+    hg       = ev["home_goals_metrics"]
+    ag       = ev["away_goals_metrics"]
+    ds       = ev["dataset_info"]
+    conf_mat = ev["confusion_matrix"]
+
+    # ── Section 1: Top-level headline metrics ────────────────────────────────
+    st.subheader("Classifier Performance (Match Outcome)")
+    m1, m2, m3, m4 = st.columns(4)
+    with m1:
+        st.metric(
+            "Accuracy",
+            f"{cm_data['accuracy']*100:.1f}%",
+            help="Fraction of test matches where the predicted outcome (Home Win / Draw / Away Win) was correct."
+        )
+    with m2:
+        st.metric(
+            "Log Loss",
+            f"{cm_data['log_loss']:.4f}",
+            help="Penalises confident wrong predictions. Lower is better. A perfect model scores 0."
+        )
+    with m3:
+        st.metric(
+            "Brier Score",
+            f"{cm_data['brier_score']:.4f}",
+            help="Mean squared error of probability estimates (0 = perfect, 1 = worst). Below 0.25 is good."
+        )
+    with m4:
+        st.metric(
+            "Test Set Size",
+            f"{ds['test_size']:,}",
+            help=f"20% stratified holdout from {ds['total_samples']:,} total processed rows."
+        )
+
+    st.caption(
+        f"Training set: **{ds['train_size']:,} matches** | "
+        f"Test set: **{ds['test_size']:,} matches** | "
+        f"Total processed: **{ds['total_samples']:,} rows** "
+        f"(includes symmetric duplicate rows for positional bias removal)"
+    )
+
+    st.divider()
+
+    # ── Section 2: Per-class Classification Report ───────────────────────────
+    col_report, col_cm = st.columns([1.2, 1])
+
+    with col_report:
+        st.subheader("Per-Class Classification Report")
+        report_df = cm_data["report_df"].copy()
+
+        def _color_f1(val):
+            if isinstance(val, float):
+                if val >= 0.60:
+                    return "background-color: #1a472a; color: #c3e6cb"
+                elif val >= 0.40:
+                    return "background-color: #4a3800; color: #ffd700"
+                else:
+                    return "background-color: #4a1010; color: #f5c6cb"
+            return ""
+
+        styled = (
+            report_df.style
+            .applymap(_color_f1, subset=["F1-Score"])
+            .format({"Precision": "{:.3f}", "Recall": "{:.3f}", "F1-Score": "{:.3f}"})
+        )
+        st.dataframe(styled, use_container_width=True, hide_index=True)
+        st.caption(
+            "**F1-Score** colour key: "
+            "🟢 ≥ 0.60 (Strong)  |  🟡 0.40–0.59 (Moderate)  |  🔴 < 0.40 (Weak)"
+        )
+
+    with col_cm:
+        st.subheader("Confusion Matrix")
+        try:
+            import plotly.graph_objects as go
+            cm_array = conf_mat["matrix"]
+            cm_labels = conf_mat["labels"]
+            # Row-normalise so colour = proportion, not raw count
+            cm_norm = cm_array.astype(float)
+            row_sums = cm_norm.sum(axis=1, keepdims=True)
+            row_sums[row_sums == 0] = 1
+            cm_norm = cm_norm / row_sums
+
+            fig_cm = go.Figure(go.Heatmap(
+                z=cm_norm[::-1],
+                x=cm_labels,
+                y=cm_labels[::-1],
+                text=cm_array[::-1],
+                texttemplate="%{text}",
+                colorscale="Blues",
+                showscale=False,
+                hovertemplate="Actual: %{y}<br>Predicted: %{x}<br>Count: %{text}<extra></extra>",
+            ))
+            fig_cm.update_layout(
+                xaxis_title="Predicted",
+                yaxis_title="Actual",
+                margin=dict(l=10, r=10, t=10, b=40),
+                height=280,
+                paper_bgcolor="rgba(0,0,0,0)",
+                plot_bgcolor="rgba(0,0,0,0)",
+                font=dict(color="white"),
+            )
+            st.plotly_chart(fig_cm, use_container_width=True)
+        except ImportError:
+            # Plotly not installed — fall back to a plain DataFrame
+            cm_df = pd.DataFrame(
+                conf_mat["matrix"],
+                index=[f"Act: {l}" for l in conf_mat["labels"]],
+                columns=[f"Pred: {l}" for l in conf_mat["labels"]],
+            )
+            st.dataframe(cm_df, use_container_width=True)
+
+    st.divider()
+
+    # ── Section 3: Goal Regressor Metrics ────────────────────────────────────
+    st.subheader("Goal Regressor Performance")
+    st.caption(
+        "MAE = average absolute goal error per match prediction. "
+        "RMSE weights large errors more heavily."
+    )
+    g1, g2, g3, g4 = st.columns(4)
+    with g1:
+        st.metric("Home Goals MAE",  f"{hg['mae']:.3f}",  help="Average |predicted - actual| home goals per match.")
+    with g2:
+        st.metric("Home Goals RMSE", f"{hg['rmse']:.3f}", help="Root mean squared error for home goals.")
+    with g3:
+        st.metric("Away Goals MAE",  f"{ag['mae']:.3f}",  help="Average |predicted - actual| away goals per match.")
+    with g4:
+        st.metric("Away Goals RMSE", f"{ag['rmse']:.3f}", help="Root mean squared error for away goals.")
+
+    st.divider()
+
+    # ── Section 4: Feature Importance ────────────────────────────────────────
+    st.subheader("Top 10 Feature Importances (XGBoost Classifier)")
+    st.caption(
+        "Feature gain importance: how much each feature contributes to reducing prediction uncertainty. "
+        "A feature at 15% means it drives 15% of the model's decision-making power."
+    )
+    top10 = fi_df.head(10).copy()
+    top10["Importance %"] = (top10["Importance"] * 100).round(2)
+
+    try:
+        import plotly.express as px
+        fig_fi = px.bar(
+            top10.sort_values("Importance"),
+            x="Importance %",
+            y="Feature",
+            orientation="h",
+            color="Importance %",
+            color_continuous_scale="Reds",
+            text="Importance %",
+        )
+        fig_fi.update_traces(texttemplate="%{text:.2f}%", textposition="outside")
+        fig_fi.update_layout(
+            xaxis_title="Importance (%)",
+            yaxis_title="",
+            showlegend=False,
+            coloraxis_showscale=False,
+            margin=dict(l=10, r=60, t=10, b=40),
+            height=380,
+            paper_bgcolor="rgba(0,0,0,0)",
+            plot_bgcolor="rgba(0,0,0,0)",
+            font=dict(color="white"),
+        )
+        fig_fi.update_xaxes(showgrid=True, gridcolor="rgba(255,255,255,0.08)")
+        fig_fi.update_yaxes(showgrid=False)
+        st.plotly_chart(fig_fi, use_container_width=True)
+    except ImportError:
+        # Fallback: Streamlit native bar chart
+        st.bar_chart(top10.set_index("Feature")["Importance %"])
+
+    with st.expander("View all feature importances"):
+        st.dataframe(
+            fi_df.rename(columns={"Importance": "Gain Importance"}),
+            use_container_width=True,
+            hide_index=True,
+        )
