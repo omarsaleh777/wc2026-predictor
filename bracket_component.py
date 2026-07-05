@@ -215,8 +215,64 @@ def render_data_entry_ui(bracket_data, historical_df=None, models=None):
                 pens_away = st.number_input(f"{away_name} Penalties", min_value=0, value=0, step=1)
         
         if st.button("Submit Result", type="primary"):
-            updated_data = process_match_result(bracket_data, selected_match_id, actual_home, actual_away, went_to_pens, pens_home, pens_away, historical_df, models)
-            
+            # ── Step 1: Persist this knockout result to the shared database ──
+            # This ensures the NEXT predict_match() call uses cumulative form
+            # data that includes this match — no model retrain needed.
+            try:
+                import update_data as _ud
+                stage_map = {
+                    "r32": "Round of 32", "r16": "Round of 16",
+                    "qf": "Quarter-final", "sf": "Semi-final", "final": "Final"
+                }
+                match_stage = stage_map.get(selected_rnd, "Knockout")
+                _ud.append_knockout_result_to_db({
+                    "home_team":  home_name,
+                    "away_team":  away_name,
+                    "home_score": actual_home,
+                    "away_score": actual_away,
+                    "stage":      match_stage,
+                })
+            except Exception as _e:
+                st.warning(f"⚠️ Could not save result to database: {_e}")
+
+            # ── Step 2: Bust the data cache so the next prediction reloads ──
+            # the freshly updated new_results.csv from disk.
+            st.cache_data.clear()
+
+            # ── Step 3: Reload historical_df with the knockout match included ──
+            # This is the fresh DataFrame we pass to process_match_result so
+            # the ML model predicts the NEXT round with up-to-date form vectors.
+            fresh_historical_df = historical_df  # fallback if reload fails
+            try:
+                import pandas as _pd
+                from config import RAW_RESULTS_PATH, NEW_RESULTS_PATH, MIN_MATCH_YEAR
+                from src.normalize import normalize_dataframe as _norm
+                import os as _os
+                _raw = _pd.read_csv(RAW_RESULTS_PATH)
+                _raw["date"] = _pd.to_datetime(_raw["date"])
+                _raw = _norm(_raw)
+                if _os.path.exists(NEW_RESULTS_PATH):
+                    _new = _pd.read_csv(NEW_RESULTS_PATH)
+                    _new["date"] = _pd.to_datetime(_new["date"])
+                    _new = _norm(_new)
+                    _raw = _pd.concat([_raw, _new], ignore_index=True)
+                    _raw = _raw.drop_duplicates(
+                        subset=["date", "home_team", "away_team"], keep="last"
+                    )
+                _raw = _raw[_raw["date"].dt.year >= MIN_MATCH_YEAR]
+                _raw = _raw.sort_values("date").reset_index(drop=True)
+                fresh_historical_df = _raw
+            except Exception as _e:
+                st.warning(f"⚠️ Could not reload historical data: {_e}")
+
+            # ── Step 4: Advance bracket + predict next round with fresh data ──
+            updated_data = process_match_result(
+                bracket_data, selected_match_id,
+                actual_home, actual_away,
+                went_to_pens, pens_home, pens_away,
+                fresh_historical_df, models
+            )
+
             st.session_state.bracket_data = updated_data
             with open("bracket_state.json", "w") as f:
                 json.dump(updated_data, f)

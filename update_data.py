@@ -21,6 +21,76 @@ from src.train import run_training
 from config import NEW_RESULTS_PATH, STANDINGS_PATH
 
 
+def append_knockout_result_to_db(match_dict: dict) -> None:
+    """
+    Append a single knockout match result to new_results.csv.
+
+    This is the lightweight counterpart to run_full_update(). It does NOT
+    retrain the XGBoost model — it only persists the raw match data so that
+    the NEXT call to predict_match() builds feature vectors from a database
+    that includes this knockout match. Feature recalculation happens at
+    inference time inside build_feature_vector(), which iterates the full
+    historical_df from scratch each call.
+
+    Args:
+        match_dict: Must contain: home_team, away_team, home_score, away_score.
+                    Optional: date, stage (defaults to "Knockout"), is_penalty,
+                    home_penalties, away_penalties.
+
+    Raises:
+        ValueError: If teams are identical or scores are negative.
+    """
+    home = normalize_team_name(match_dict["home_team"])
+    away = normalize_team_name(match_dict["away_team"])
+    h_score = int(match_dict["home_score"])
+    a_score = int(match_dict["away_score"])
+
+    if home == away:
+        raise ValueError(f"home and away teams are identical: '{home}'")
+    if h_score < 0 or a_score < 0:
+        raise ValueError(f"Scores cannot be negative ({home} {h_score}–{a_score} {away})")
+
+    # For knockout rounds that go to penalties, the 90-minute scoreline is the
+    # genuine football signal (e.g., 1-1 after extra time is what the model
+    # should learn from — not the cumulative 1-1 + 4-2 on pens).
+    new_row = {
+        "date":       match_dict.get("date", datetime.date.today().isoformat()),
+        "home_team":  home,
+        "away_team":  away,
+        "home_score": h_score,
+        "away_score": a_score,
+        "tournament": "FIFA World Cup",
+        "city":       "",
+        "country":    "",
+        "neutral":    True,
+        "group":      None,
+        "stage":      match_dict.get("stage", "Knockout"),
+    }
+
+    new_df = pd.DataFrame([new_row])
+    os.makedirs(os.path.dirname(NEW_RESULTS_PATH), exist_ok=True)
+
+    if os.path.exists(NEW_RESULTS_PATH):
+        existing = pd.read_csv(NEW_RESULTS_PATH)
+        # Avoid exact duplicates (e.g., user double-clicks Submit)
+        dup_mask = (
+            (existing["home_team"] == home) &
+            (existing["away_team"] == away) &
+            (existing["home_score"] == h_score) &
+            (existing["away_score"] == a_score)
+        )
+        if dup_mask.any():
+            print(f"[knockout_db] Duplicate ignored: {home} {h_score}–{a_score} {away}")
+            return
+        combined = pd.concat([existing, new_df], ignore_index=True)
+    else:
+        combined = new_df
+
+    combined.to_csv(NEW_RESULTS_PATH, index=False)
+    print(f"[knockout_db] Saved: {home} {h_score}–{a_score} {away} "
+          f"(stage={new_row['stage']}) → {NEW_RESULTS_PATH}")
+
+
 def write_all_results(list_of_result_dicts) -> None:
     """
     Overwrite new_results.csv entirely with the provided list of matches.
