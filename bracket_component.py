@@ -282,8 +282,18 @@ def render_bracket(bracket_data: dict):
     """
     Render an interactive 32-team knockout bracket as a Streamlit HTML component.
     """
+    import hashlib
     bracket_json = json.dumps(bracket_data)
+    
+    # Hash the bracket data to create a unique identifier.
+    # By injecting this into the HTML, we force Streamlit to completely 
+    # destroy and recreate the iframe whenever the data changes, 
+    # guaranteeing a clean mount of the JS event listeners.
+    data_hash = hashlib.md5(bracket_json.encode('utf-8')).hexdigest()
+    
     html_string = _BRACKET_TEMPLATE.replace("'%%BRACKET_JSON%%'", bracket_json)
+    html_string = html_string.replace("<!--%%HASH%%-->", f"<meta name='bracket-hash' content='{data_hash}'>")
+    
     components.html(html_string, height=900, scrolling=True)
 
 
@@ -295,6 +305,7 @@ _BRACKET_TEMPLATE = """<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<!--%%HASH%%-->
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -550,9 +561,35 @@ html,body{
 .tip-label{ color:rgba(255,255,255,0.6); text-transform:uppercase; font-weight:600; font-size:10px; letter-spacing:0.5px;}
 .tip-val{ font-weight:700; color:#fff; }
 
+/* Reset View Button */
+#reset-view-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: rgba(255, 75, 75, 0.15);
+  color: #ff4b4b;
+  border: 1px solid rgba(255, 75, 75, 0.4);
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 1000;
+  transition: all 0.2s;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  backdrop-filter: blur(4px);
+}
+#reset-view-btn:hover {
+  background-color: rgba(255, 75, 75, 0.3);
+  border-color: #ff4b4b;
+}
+
 </style>
 </head>
 <body>
+
+<button id="reset-view-btn">Reset View</button>
 
 <div id="bracket-root">
   <div class="bracket-inner" id="bracket-inner">
@@ -739,54 +776,74 @@ function matchCard(m, delay) {
 var scale = 1, panning = false, pointX = 0, pointY = 0, startX = 0, startY = 0;
 var bracketRoot = document.getElementById("bracket-root");
 var bracketInner = document.getElementById("bracket-inner");
+var resetBtn = document.getElementById("reset-view-btn");
 
 function setTransform() {
   bracketInner.style.transform = "translate(" + pointX + "px, " + pointY + "px) scale(" + scale + ")";
-  // No need to redraw connections during pan/zoom because SVG is now scaled natively inside .bracket-inner
 }
 
-bracketRoot.onmousedown = function (e) {
-  e.preventDefault();
-  startX = e.clientX - pointX;
-  startY = e.clientY - pointY;
-  panning = true;
-  bracketRoot.style.cursor = "grabbing";
-};
+function initInteractions() {
+  // Reset Button
+  resetBtn.addEventListener("click", function() {
+    // Recalculate optimal center scale just like initial load
+    var bw = bracketInner.scrollWidth;
+    var bh = bracketInner.scrollHeight;
+    var vw = bracketRoot.clientWidth;
+    var vh = bracketRoot.clientHeight;
+    
+    scale = Math.min((vw - 40) / bw, (vh - 40) / bh);
+    if(scale > 1) scale = 1;
+    
+    pointX = (vw - (bw * scale)) / 2;
+    pointY = (vh - (bh * scale)) / 2;
+    setTransform();
+  });
 
-bracketRoot.onmouseup = function (e) {
-  panning = false;
-  bracketRoot.style.cursor = "grab";
-};
+  // Pan logic
+  bracketRoot.addEventListener("mousedown", function(e) {
+    // Only drag on left click
+    if (e.button !== 0) return;
+    // Don't drag if clicking a match card (let them scroll if needed)
+    if (e.target.closest('.match-card')) return;
+    
+    e.preventDefault();
+    startX = e.clientX - pointX;
+    startY = e.clientY - pointY;
+    panning = true;
+    bracketRoot.style.cursor = "grabbing";
+  });
 
-bracketRoot.onmouseleave = function (e) {
-  panning = false;
-  bracketRoot.style.cursor = "grab";
-};
+  window.addEventListener("mouseup", function() {
+    panning = false;
+    bracketRoot.style.cursor = "grab";
+  });
 
-bracketRoot.onmousemove = function (e) {
-  e.preventDefault();
-  if (!panning) return;
-  pointX = (e.clientX - startX);
-  pointY = (e.clientY - startY);
-  setTransform();
-};
+  bracketRoot.addEventListener("mousemove", function(e) {
+    if (!panning) return;
+    e.preventDefault();
+    pointX = (e.clientX - startX);
+    pointY = (e.clientY - startY);
+    setTransform();
+  });
 
-bracketRoot.onwheel = function (e) {
-  e.preventDefault();
-  var xs = (e.clientX - pointX) / scale;
-  var ys = (e.clientY - pointY) / scale;
-  var delta = (e.wheelDelta ? e.wheelDelta : -e.deltaY);
-  
-  if (delta > 0) scale *= 1.1;
-  else scale /= 1.1;
+  // Zoom logic
+  bracketRoot.addEventListener("wheel", function(e) {
+    e.preventDefault();
+    var xs = (e.clientX - pointX) / scale;
+    var ys = (e.clientY - pointY) / scale;
+    var delta = (e.wheelDelta ? e.wheelDelta : -e.deltaY);
+    
+    if (delta > 0) scale *= 1.1;
+    else scale /= 1.1;
 
-  if (scale < 0.3) scale = 0.3;
-  if (scale > 2) scale = 2;
+    if (scale < 0.2) scale = 0.2;
+    if (scale > 2) scale = 2;
 
-  pointX = e.clientX - xs * scale;
-  pointY = e.clientY - ys * scale;
-  setTransform();
-};
+    pointX = e.clientX - xs * scale;
+    pointY = e.clientY - ys * scale;
+    setTransform();
+  }, { passive: false });
+}
 
 /* ━━━━━━━━━━━━━━━━━ Rendering ━━━━━━━━━━━━━━━━━ */
 function initBracket() {
@@ -928,6 +985,7 @@ function drawLine(id1, id2, svg, direction, targetSlot) {
 
 window.addEventListener('resize', drawConnections);
 initBracket();
+initInteractions();
 </script>
 </body>
 </html>
