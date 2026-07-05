@@ -510,12 +510,95 @@ with tab_bracket:
             st.session_state.bracket_data = bracket_component.build_initial_bracket()
 
     if "bracket_data" in st.session_state:
+
+        # ── Retrain Panel ─────────────────────────────────────────────────────
+        st.divider()
+        st.markdown("#### 🔬 Model Retraining")
+
+        # Count how many knockout rows are in the database
+        _new_results_path = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            "data", "updated", "new_results.csv"
+        )
+        _knockout_stages = {"Round of 32", "Round of 16", "Quarter-final", "Semi-final", "Final", "Knockout"}
+        _ko_count = 0
+        _total_rows = 0
+        if os.path.exists(_new_results_path):
+            try:
+                _df_new = pd.read_csv(_new_results_path)
+                _total_rows = len(_df_new)
+                _ko_count = int(_df_new["stage"].isin(_knockout_stages).sum()) if "stage" in _df_new.columns else 0
+            except Exception:
+                pass
+
+        # Last-retrain timestamp (stored in session state, survives rerun)
+        if "last_retrain_ts" not in st.session_state:
+            st.session_state.last_retrain_ts = "Original training (pre-tournament data only)"
+
+        # Counter + timestamp row
+        _col_ctr, _col_ts = st.columns([1, 2])
+        with _col_ctr:
+            _pct = min(_ko_count / 16 * 100, 100)
+            st.metric(
+                label="Knockout matches saved",
+                value=f"{_ko_count} / 16",
+                help="16 = one full round of the Round of 32. Retrain once a round is complete."
+            )
+            st.progress(int(_pct))
+        with _col_ts:
+            st.caption(f"**Last retrained:** {st.session_state.last_retrain_ts}")
+            st.caption(
+                f"Total rows in database: **{_total_rows}** "
+                f"(minimum 72 required to retrain)"
+            )
+
+        # Retrain button
+        if st.button("🔄 Retrain Model on All Data", type="secondary", use_container_width=True):
+            # Guard: need enough data before retraining
+            if _total_rows <= 72:
+                st.error(
+                    f"❌ Not enough data to retrain. "
+                    f"Current dataset has **{_total_rows} rows** — need > 72. "
+                    f"Submit more match results first."
+                )
+            else:
+                with st.spinner(f"Retraining model on {_total_rows} matches... (30–90 sec)"):
+                    try:
+                        # Delegate entirely to the existing pipeline function —
+                        # no training logic lives in this UI file.
+                        # run_full_update() expects a list of results + fixtures_df,
+                        # but we only want ETL + retrain here (results already saved).
+                        # So we call run_etl + run_training directly via update_data.
+                        from src.etl import run_etl as _etl
+                        from src.train import run_training as _train
+                        _etl()
+                        _train()
+
+                        # Bust all caches so predictions use new model weights
+                        clear_all_caches()
+
+                        # Update timestamp
+                        import datetime as _dt
+                        st.session_state.last_retrain_ts = (
+                            _dt.datetime.now().strftime("%Y-%m-%d %H:%M") +
+                            f" ({_total_rows} matches)"
+                        )
+                        st.success(
+                            f"✅ Model retrained successfully on **{_total_rows} matches**. "
+                            f"All future predictions now use updated weights."
+                        )
+                    except Exception as _e:
+                        st.error(f"❌ Retrain failed: {_e}")
+
+        st.divider()
+
+        # ── Existing bracket controls ─────────────────────────────────────────
         if st.button("Reset Bracket (Clear Saves)"):
             if os.path.exists("bracket_state.json"):
                 os.remove("bracket_state.json")
             del st.session_state.bracket_data
             st.rerun()
-            
+
         bracket_component.render_data_entry_ui(st.session_state.bracket_data, historical_df, models)
         bracket_component.render_bracket(st.session_state.bracket_data)
 
