@@ -564,15 +564,21 @@ with tab_bracket:
             else:
                 with st.spinner(f"Retraining model on {_total_rows} matches... (30–90 sec)"):
                     try:
-                        # Delegate entirely to the existing pipeline function —
-                        # no training logic lives in this UI file.
-                        # run_full_update() expects a list of results + fixtures_df,
-                        # but we only want ETL + retrain here (results already saved).
-                        # So we call run_etl + run_training directly via update_data.
-                        from src.etl import run_etl as _etl
-                        from src.train import run_training as _train
-                        _etl()
-                        _train()
+                        # Delegate entirely to the existing pipeline functions.
+                        # We redirect stdout to a StringIO buffer to prevent
+                        # Windows cp1256 codec crashes from Unicode print()
+                        # statements (━━━, emoji etc.) in etl.py and train.py.
+                        import io as _io
+                        _buf = _io.StringIO()
+                        _old_stdout = sys.stdout
+                        try:
+                            sys.stdout = _buf
+                            from src.etl import run_etl as _etl
+                            from src.train import run_training as _train
+                            _etl()
+                            _train()
+                        finally:
+                            sys.stdout = _old_stdout
 
                         # Bust all caches so predictions use new model weights
                         clear_all_caches()
