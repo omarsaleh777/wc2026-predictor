@@ -45,6 +45,119 @@ def build_initial_bracket():
         
     return data
 
+def load_group_standings_df():
+    try:
+        from src import bracket_logic as bl
+        standings = bl.load_standings()
+        rows = []
+        for group_name, teams in standings.items():
+            if teams:
+                sorted_teams = bl.sort_group(teams)
+                for team_name, stats in sorted_teams:
+                    rows.append({'Group': group_name, 'Team': team_name, 'Pts': stats['pts'], 'GD': stats['gd'], 'GF': stats['gf']})
+        import pandas as pd
+        return pd.DataFrame(rows)
+    except Exception as e:
+        import streamlit as st
+        st.error(f"Error loading group standings: {e}")
+        return None
+
+def populate_r32_teams(bracket_data, group_standings_df, historical_df=None, models=None):
+    if group_standings_df is None or group_standings_df.empty:
+        return bracket_data
+        
+    group_winners = {}
+    runners_up = {}
+    third_places = []
+    
+    for group_name, group_df in group_standings_df.groupby('Group'):
+        sorted_df = group_df.sort_values(by=['Pts', 'GD', 'GF'], ascending=[False, False, False])
+        teams = sorted_df.to_dict('records')
+        
+        if len(teams) >= 1:
+            group_winners[group_name] = teams[0]['Team']
+        if len(teams) >= 2:
+            runners_up[group_name] = teams[1]['Team']
+        if len(teams) >= 3:
+            third_places.append(teams[2])
+            
+    best_thirds = sorted(third_places, key=lambda x: (x.get("Pts", 0), x.get("GD", 0), x.get("GF", 0)), reverse=True)[:8]
+    
+    from src.bracket_builder import map_third_place_teams, THIRD_PLACE_SLOTS
+    for t in best_thirds:
+        t["group"] = t["Group"]
+        
+    third_place_map = map_third_place_teams(best_thirds)
+    if third_place_map is None:
+        third_place_map = {slot["match_id"]: team for slot, team in zip(THIRD_PLACE_SLOTS, best_thirds)}
+        
+    for m in bracket_data.get("r32", []):
+        m_id = m["match_id"]
+        
+        home_str = m["home"]["name"]
+        if home_str.startswith("1") and len(home_str) == 2:
+            grp = home_str[1]
+            m["home"]["name"] = group_winners.get(grp, home_str)
+        elif home_str.startswith("2") and len(home_str) == 2:
+            grp = home_str[1]
+            m["home"]["name"] = runners_up.get(grp, home_str)
+        elif "3" in home_str:
+            t = third_place_map.get(m_id)
+            if t:
+                m["home"]["name"] = t["Team"]
+                
+        away_str = m["away"]["name"]
+        if away_str.startswith("1") and len(away_str) == 2:
+            grp = away_str[1]
+            m["away"]["name"] = group_winners.get(grp, away_str)
+        elif away_str.startswith("2") and len(away_str) == 2:
+            grp = away_str[1]
+            m["away"]["name"] = runners_up.get(grp, away_str)
+        elif "3" in away_str:
+            t = third_place_map.get(m_id)
+            if t:
+                m["away"]["name"] = t["Team"]
+                
+                
+        if historical_df is not None and models is not None and m["home"]["name"] != "TBD" and m["away"]["name"] != "TBD":
+            from src.predict import predict_match
+            pred = predict_match(m["home"]["name"], m["away"]["name"], historical_df, models)
+            w_prob = pred.get("home_win_pct", 50.0)
+            l_prob = pred.get("away_win_pct", 50.0)
+            total = w_prob + l_prob
+            if total > 0:
+                m["win_prob"] = float((w_prob / total) * 100.0)
+                m["loss_prob"] = float((l_prob / total) * 100.0)
+            else:
+                m["win_prob"] = 50.0
+                m["loss_prob"] = 50.0
+                
+            m["reasoning"] = pred.get("reasoning", "Awaiting AI Analysis")
+            h_goals = pred.get("home_goals", 0)
+            a_goals = pred.get("away_goals", 0)
+            m["pred_home_goals"] = h_goals
+            m["pred_away_goals"] = a_goals
+            m["pred_is_penalty"] = False
+            m["pred_home_penalties"] = 0
+            m["pred_away_penalties"] = 0
+            
+            if h_goals == a_goals:
+                m["pred_is_penalty"] = True
+                if w_prob >= l_prob:
+                    m["pred_home_penalties"] = 4
+                    m["pred_away_penalties"] = 2
+                else:
+                    m["pred_home_penalties"] = 3
+                    m["pred_away_penalties"] = 5
+        else:
+            m["win_prob"] = 50.0
+            m["loss_prob"] = 50.0
+            m["pred_home_goals"] = ""
+            m["pred_away_goals"] = ""
+            m["pred_is_penalty"] = False
+                
+    return bracket_data
+
 def get_next_round(current_round):
     round_order = ["r32", "r16", "qf", "sf", "final"]
     if current_round not in round_order:
@@ -168,23 +281,23 @@ def process_match_result(bracket_data, match_id, home_goals, away_goals, is_pena
 def render_data_entry_ui(bracket_data, historical_df=None, models=None):
     """Renders the Streamlit Data Entry UI with Live ML Prediction pre-filling."""
     with st.expander("📝 Log Match Result", expanded=True):
-        upcoming_matches = []
+        editable_matches = []
         for rnd, matches in bracket_data.items():
             for m in matches:
-                if m.get("status") == "upcoming":
-                    upcoming_matches.append((rnd, m))
+                if m["home"]["name"] != "TBD" and m["away"]["name"] != "TBD" and "TBD" not in m["home"]["name"] and "TBD" not in m["away"]["name"]:
+                    editable_matches.append((rnd, m))
                     
-        if not upcoming_matches:
-            st.info("No upcoming matches available.")
+        if not editable_matches:
+            st.info("No editable matches available.")
             return
 
         match_options = {
-            f"{m['match_id']}": f"{m['home']['name']} vs {m['away']['name']} ({rnd.upper()})"
-            for rnd, m in upcoming_matches
+            f"{m['match_id']}": f"{m['home']['name']} vs {m['away']['name']} ({rnd.upper()}) {'[COMPLETED]' if m.get('status') == 'completed' else ''}"
+            for rnd, m in editable_matches
         }
         
         selected_match_id = st.selectbox("Select Match:", options=list(match_options.keys()), format_func=lambda x: match_options[x])
-        selected_rnd, selected_match = next((r, m) for r, m in upcoming_matches if m["match_id"] == selected_match_id)
+        selected_rnd, selected_match = next((r, m) for r, m in editable_matches if m["match_id"] == selected_match_id)
         
         home_name = selected_match['home']['name']
         away_name = selected_match['away']['name']
@@ -222,6 +335,12 @@ def render_data_entry_ui(bracket_data, historical_df=None, models=None):
                 pred_away_goals = 2
         else:
             st.info("🤖 **Antigravity ML Prediction:** Awaiting match resolution")
+            
+        # If match is completed, use actuals
+        is_completed = selected_match.get("status") == "completed"
+        if is_completed:
+            pred_home_goals = selected_match.get("actual_home_goals", pred_home_goals)
+            pred_away_goals = selected_match.get("actual_away_goals", pred_away_goals)
         
         col1, col2 = st.columns(2)
         with col1:
@@ -229,14 +348,16 @@ def render_data_entry_ui(bracket_data, historical_df=None, models=None):
         with col2:
             actual_away = st.number_input(f"{away_name} Goals", min_value=0, value=pred_away_goals, step=1)
             
-        went_to_pens = st.checkbox("Went to Penalties?")
+        went_to_pens = st.checkbox("Went to Penalties?", value=selected_match.get("is_penalty", False))
         pens_home, pens_away = 0, 0
         if went_to_pens:
             pcol1, pcol2 = st.columns(2)
+            init_hp = selected_match.get("home_penalties", 0) if is_completed else 0
+            init_ap = selected_match.get("away_penalties", 0) if is_completed else 0
             with pcol1:
-                pens_home = st.number_input(f"{home_name} Penalties", min_value=0, value=0, step=1)
+                pens_home = st.number_input(f"{home_name} Penalties", min_value=0, value=init_hp, step=1)
             with pcol2:
-                pens_away = st.number_input(f"{away_name} Penalties", min_value=0, value=0, step=1)
+                pens_away = st.number_input(f"{away_name} Penalties", min_value=0, value=init_ap, step=1)
         
         if st.button("Submit Result", type="primary"):
             # ── Step 1: Persist this knockout result to the shared database ──
@@ -298,8 +419,101 @@ def render_data_entry_ui(bracket_data, historical_df=None, models=None):
             )
 
             st.session_state.bracket_data = updated_data
+            
+            # ── Step 5: Instant Auto-Save ──
+            import json
             with open("bracket_state.json", "w") as f:
-                json.dump(updated_data, f)
+                json.dump(updated_data, f, indent=4)
+                
+            st.success("Result Saved! Model will retrain automatically.")
+            st.rerun()
+
+def render_team_override_ui(bracket_data, all_teams, historical_df=None, models=None):
+    """Renders a UI to manually force any team into any bracket slot."""
+    with st.expander("🛠️ Manual Override: Edit Match Teams", expanded=False):
+        st.caption("Select any match and forcefully inject any team into its Home/Away slots.")
+        
+        all_matches = []
+        for rnd, matches in bracket_data.items():
+            for m in matches:
+                all_matches.append((rnd, m))
+                
+        if not all_matches:
+            st.info("No matches available.")
+            return
+            
+        match_options = {
+            f"{m['match_id']}": f"{m['match_id'].upper()}: {m['home']['name']} vs {m['away']['name']}"
+            for rnd, m in all_matches
+        }
+        
+        selected_match_id = st.selectbox("Select Match to Override:", options=list(match_options.keys()), format_func=lambda x: match_options[x], key="override_match_select")
+        selected_rnd, selected_match = next((r, m) for r, m in all_matches if m["match_id"] == selected_match_id)
+        
+        team_options = ["TBD"] + sorted(list(all_teams))
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            current_home = selected_match['home']['name']
+            default_home_idx = team_options.index(current_home) if current_home in team_options else 0
+            new_home = st.selectbox("Force Home Team", options=team_options, index=default_home_idx, key="force_home")
+        with col2:
+            current_away = selected_match['away']['name']
+            default_away_idx = team_options.index(current_away) if current_away in team_options else 0
+            new_away = st.selectbox("Force Away Team", options=team_options, index=default_away_idx, key="force_away")
+            
+        if st.button("Apply Team Override", type="secondary"):
+            selected_match['home']['name'] = new_home
+            selected_match['away']['name'] = new_away
+            
+            # Reset the match status to upcoming so predictions can run cleanly
+            selected_match['status'] = "upcoming"
+            selected_match['actual_home_goals'] = "-"
+            selected_match['actual_away_goals'] = "-"
+            selected_match['winner'] = None
+            selected_match['is_penalty'] = False
+            
+            # Re-predict immediately if both teams are known
+            if historical_df is not None and models is not None and new_home != "TBD" and new_away != "TBD":
+                from src.predict import predict_match
+                pred = predict_match(new_home, new_away, historical_df, models)
+                w_prob = pred.get("home_win_pct", 50.0)
+                l_prob = pred.get("away_win_pct", 50.0)
+                total = w_prob + l_prob
+                if total > 0:
+                    selected_match["win_prob"] = float((w_prob / total) * 100.0)
+                    selected_match["loss_prob"] = float((l_prob / total) * 100.0)
+                else:
+                    selected_match["win_prob"] = 50.0
+                    selected_match["loss_prob"] = 50.0
+                    
+                selected_match["reasoning"] = pred.get("reasoning", "Awaiting AI Analysis")
+                h_goals = pred.get("home_goals", 0)
+                a_goals = pred.get("away_goals", 0)
+                selected_match["pred_home_goals"] = h_goals
+                selected_match["pred_away_goals"] = a_goals
+                selected_match["pred_is_penalty"] = False
+                selected_match["pred_home_penalties"] = 0
+                selected_match["pred_away_penalties"] = 0
+                
+                if h_goals == a_goals:
+                    selected_match["pred_is_penalty"] = True
+                    if w_prob >= l_prob:
+                        selected_match["pred_home_penalties"] = 4
+                        selected_match["pred_away_penalties"] = 2
+                    else:
+                        selected_match["pred_home_penalties"] = 3
+                        selected_match["pred_away_penalties"] = 5
+            else:
+                selected_match["win_prob"] = 50.0
+                selected_match["loss_prob"] = 50.0
+                selected_match["pred_home_goals"] = ""
+                selected_match["pred_away_goals"] = ""
+                selected_match["pred_is_penalty"] = False
+
+            import json
+            with open("bracket_state.json", "w") as f:
+                json.dump(bracket_data, f, indent=4)
             st.rerun()
 
 def render_bracket(bracket_data: dict):
@@ -733,8 +947,8 @@ function matchCard(m, delay) {
   var hasW = hw || aw;
 
   /* Render probabilities */
-  var hProb = m.win_prob || 50.0;
-  var aProb = m.loss_prob || 50.0;
+  var hProb = m.win_prob !== undefined && m.win_prob !== "" ? m.win_prob : 50.0;
+  var aProb = m.loss_prob !== undefined && m.loss_prob !== "" ? m.loss_prob : 50.0;
 
   var hScoreStr = '';
   var aScoreStr = '';

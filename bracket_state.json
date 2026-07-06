@@ -1,1 +1,699 @@
-{"r32": [{"match_id": "r32_1", "status": "completed", "winner": "away", "home": {"name": "Germany", "code": "de"}, "away": {"name": "Paraguay", "code": "py"}, "actual_home_goals": 1, "actual_away_goals": 1, "win_prob": 93.06296668975298, "loss_prob": 6.937033310247018, "draw_prob": 0.0, "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance.", "is_penalty": true, "home_penalties": 3, "away_penalties": 4}, {"match_id": "r32_2", "status": "upcoming", "winner": null, "home": {"name": "France", "code": "fr"}, "away": {"name": "Sweden", "code": "se"}, "actual_home_goals": "-", "actual_away_goals": "-", "win_prob": 89.7959187411811, "loss_prob": 10.204081258818912, "draw_prob": 0.0, "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance."}, {"match_id": "r32_3", "status": "completed", "winner": "away", "home": {"name": "South Africa", "code": "za"}, "away": {"name": "Canada", "code": "ca"}, "actual_home_goals": 0, "actual_away_goals": 1, "win_prob": 53.65168588990109, "loss_prob": 46.34831411009891, "draw_prob": 0.0, "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance.", "is_penalty": false}, {"match_id": "r32_4", "status": "upcoming", "winner": null, "home": {"name": "Morocco", "code": "ma"}, "away": {"name": "Netherlands", "code": "nl"}, "actual_home_goals": "-", "actual_away_goals": "-", "win_prob": 45.45454599810449, "loss_prob": 54.54545400189551, "draw_prob": 0.0, "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance."}, {"match_id": "r32_5", "status": "upcoming", "winner": null, "home": {"name": "Portugal", "code": "pt"}, "away": {"name": "Croatia", "code": "hr"}, "actual_home_goals": "-", "actual_away_goals": "-", "win_prob": 78.45303803361206, "loss_prob": 21.546961966387933, "draw_prob": 0.0, "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance."}, {"match_id": "r32_6", "status": "upcoming", "winner": null, "home": {"name": "Spain", "code": "es"}, "away": {"name": "Austria", "code": "at"}, "actual_home_goals": "-", "actual_away_goals": "-", "win_prob": 91.37709160140022, "loss_prob": 8.622908398599781, "draw_prob": 0.0, "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance."}, {"match_id": "r32_7", "status": "upcoming", "winner": null, "home": {"name": "USA", "code": "xx"}, "away": {"name": "Bosnia and Herzegovina", "code": "xx"}, "actual_home_goals": "-", "actual_away_goals": "-", "win_prob": 70.29703002350166, "loss_prob": 29.702969976498334, "draw_prob": 0.0, "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance."}, {"match_id": "r32_8", "status": "upcoming", "winner": null, "home": {"name": "Belgium", "code": "be"}, "away": {"name": "Senegal", "code": "sn"}, "actual_home_goals": "-", "actual_away_goals": "-", "win_prob": 64.3741402665256, "loss_prob": 35.62585973347439, "draw_prob": 0.0, "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance."}, {"match_id": "r32_9", "status": "completed", "winner": "home", "home": {"name": "Brazil", "code": "br"}, "away": {"name": "Japan", "code": "jp"}, "actual_home_goals": 2, "actual_away_goals": 1, "win_prob": 71.26099602586287, "loss_prob": 28.739003974137134, "draw_prob": 0.0, "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance.", "is_penalty": false}, {"match_id": "r32_10", "status": "upcoming", "winner": null, "home": {"name": "Ivory Coast", "code": "ci"}, "away": {"name": "Norway", "code": "no"}, "actual_home_goals": "-", "actual_away_goals": "-", "win_prob": 77.86561298593352, "loss_prob": 22.134387014066483, "draw_prob": 0.0, "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance."}, {"match_id": "r32_11", "status": "upcoming", "winner": null, "home": {"name": "Mexico", "code": "mx"}, "away": {"name": "Ecuador", "code": "ec"}, "actual_home_goals": "-", "actual_away_goals": "-", "win_prob": 79.58884061575937, "loss_prob": 20.411159384240644, "draw_prob": 0.0, "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance."}, {"match_id": "r32_12", "status": "upcoming", "winner": null, "home": {"name": "England", "code": "gb-eng"}, "away": {"name": "DR Congo", "code": "cd"}, "actual_home_goals": "-", "actual_away_goals": "-", "win_prob": 89.41605860163942, "loss_prob": 10.583941398360587, "draw_prob": 0.0, "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance."}, {"match_id": "r32_13", "status": "upcoming", "winner": null, "home": {"name": "Argentina", "code": "ar"}, "away": {"name": "Cape Verde", "code": "xx"}, "actual_home_goals": "-", "actual_away_goals": "-", "win_prob": 94.53302940739471, "loss_prob": 5.46697059260529, "draw_prob": 0.0, "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance."}, {"match_id": "r32_14", "status": "upcoming", "winner": null, "home": {"name": "Egypt", "code": "eg"}, "away": {"name": "Australia", "code": "au"}, "actual_home_goals": "-", "actual_away_goals": "-", "win_prob": 53.26409601355089, "loss_prob": 46.73590398644911, "draw_prob": 0.0, "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance."}, {"match_id": "r32_15", "status": "upcoming", "winner": null, "home": {"name": "Switzerland", "code": "ch"}, "away": {"name": "Algeria", "code": "xx"}, "actual_home_goals": "-", "actual_away_goals": "-", "win_prob": 42.41573095411953, "loss_prob": 57.58426904588047, "draw_prob": 0.0, "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance."}, {"match_id": "r32_16", "status": "upcoming", "winner": null, "home": {"name": "Colombia", "code": "co"}, "away": {"name": "Ghana", "code": "gh"}, "actual_home_goals": "-", "actual_away_goals": "-", "win_prob": 79.04109590293811, "loss_prob": 20.958904097061886, "draw_prob": 0.0, "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance."}], "r16": [{"match_id": "r16_1", "status": "tbd", "winner": null, "home": {"name": "Paraguay", "code": "py"}, "away": {"name": "TBD", "code": "xx"}, "actual_home_goals": "-", "actual_away_goals": "-"}, {"match_id": "r16_2", "status": "tbd", "winner": null, "home": {"name": "Canada", "code": "ca"}, "away": {"name": "TBD", "code": "xx"}, "actual_home_goals": "-", "actual_away_goals": "-"}, {"match_id": "r16_3", "status": "tbd", "winner": null, "home": {"name": "TBD", "code": "xx"}, "away": {"name": "TBD", "code": "xx"}, "actual_home_goals": "-", "actual_away_goals": "-"}, {"match_id": "r16_4", "status": "tbd", "winner": null, "home": {"name": "TBD", "code": "xx"}, "away": {"name": "TBD", "code": "xx"}, "actual_home_goals": "-", "actual_away_goals": "-"}, {"match_id": "r16_5", "status": "tbd", "winner": null, "home": {"name": "Brazil", "code": "br"}, "away": {"name": "TBD", "code": "xx"}, "actual_home_goals": "-", "actual_away_goals": "-"}, {"match_id": "r16_6", "status": "tbd", "winner": null, "home": {"name": "TBD", "code": "xx"}, "away": {"name": "TBD", "code": "xx"}, "actual_home_goals": "-", "actual_away_goals": "-"}, {"match_id": "r16_7", "status": "tbd", "winner": null, "home": {"name": "TBD", "code": "xx"}, "away": {"name": "TBD", "code": "xx"}, "actual_home_goals": "-", "actual_away_goals": "-"}, {"match_id": "r16_8", "status": "tbd", "winner": null, "home": {"name": "TBD", "code": "xx"}, "away": {"name": "TBD", "code": "xx"}, "actual_home_goals": "-", "actual_away_goals": "-"}], "qf": [{"match_id": "qf_1", "status": "tbd", "winner": null, "home": {"name": "TBD", "code": "xx"}, "away": {"name": "TBD", "code": "xx"}, "actual_home_goals": "-", "actual_away_goals": "-"}, {"match_id": "qf_2", "status": "tbd", "winner": null, "home": {"name": "TBD", "code": "xx"}, "away": {"name": "TBD", "code": "xx"}, "actual_home_goals": "-", "actual_away_goals": "-"}, {"match_id": "qf_3", "status": "tbd", "winner": null, "home": {"name": "TBD", "code": "xx"}, "away": {"name": "TBD", "code": "xx"}, "actual_home_goals": "-", "actual_away_goals": "-"}, {"match_id": "qf_4", "status": "tbd", "winner": null, "home": {"name": "TBD", "code": "xx"}, "away": {"name": "TBD", "code": "xx"}, "actual_home_goals": "-", "actual_away_goals": "-"}], "sf": [{"match_id": "sf_1", "status": "tbd", "winner": null, "home": {"name": "TBD", "code": "xx"}, "away": {"name": "TBD", "code": "xx"}, "actual_home_goals": "-", "actual_away_goals": "-"}, {"match_id": "sf_2", "status": "tbd", "winner": null, "home": {"name": "TBD", "code": "xx"}, "away": {"name": "TBD", "code": "xx"}, "actual_home_goals": "-", "actual_away_goals": "-"}], "final": [{"match_id": "final_1", "status": "tbd", "winner": null, "home": {"name": "TBD", "code": "xx"}, "away": {"name": "TBD", "code": "xx"}, "actual_home_goals": "-", "actual_away_goals": "-"}]}
+{
+    "r32": [
+        {
+            "match_id": "r32_1",
+            "home": {
+                "name": "Germany",
+                "code": "xx"
+            },
+            "away": {
+                "name": "Paraguay",
+                "code": "xx"
+            },
+            "status": "completed",
+            "actual_home_goals": 1,
+            "actual_away_goals": 1,
+            "winner": "away",
+            "is_penalty": true,
+            "win_prob": 89.48019841712731,
+            "loss_prob": 10.51980158287269,
+            "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance.",
+            "pred_home_goals": 3,
+            "pred_away_goals": 1,
+            "pred_is_penalty": false,
+            "pred_home_penalties": 0,
+            "pred_away_penalties": 0,
+            "home_penalties": 3,
+            "away_penalties": 4
+        },
+        {
+            "match_id": "r32_2",
+            "home": {
+                "name": "France",
+                "code": "xx"
+            },
+            "away": {
+                "name": "Sweden",
+                "code": "xx"
+            },
+            "status": "completed",
+            "actual_home_goals": 3,
+            "actual_away_goals": 0,
+            "winner": "home",
+            "is_penalty": false,
+            "win_prob": 89.62264130785186,
+            "loss_prob": 10.377358692148139,
+            "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance.",
+            "pred_home_goals": 3,
+            "pred_away_goals": 1,
+            "pred_is_penalty": false,
+            "pred_home_penalties": 0,
+            "pred_away_penalties": 0
+        },
+        {
+            "match_id": "r32_3",
+            "home": {
+                "name": "South Africa",
+                "code": "xx"
+            },
+            "away": {
+                "name": "Canada",
+                "code": "xx"
+            },
+            "status": "completed",
+            "actual_home_goals": 0,
+            "actual_away_goals": 1,
+            "winner": "away",
+            "is_penalty": false,
+            "win_prob": 52.81065171816983,
+            "loss_prob": 47.18934828183017,
+            "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance.",
+            "pred_home_goals": 2,
+            "pred_away_goals": 1,
+            "pred_is_penalty": false,
+            "pred_home_penalties": 0,
+            "pred_away_penalties": 0
+        },
+        {
+            "match_id": "r32_4",
+            "home": {
+                "name": "Netherlands",
+                "code": "xx"
+            },
+            "away": {
+                "name": "Morocco",
+                "code": "xx"
+            },
+            "status": "completed",
+            "actual_home_goals": 1,
+            "actual_away_goals": 1,
+            "winner": "away",
+            "is_penalty": true,
+            "win_prob": 55.536911613334084,
+            "loss_prob": 44.463088386665916,
+            "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance.",
+            "pred_home_goals": 1,
+            "pred_away_goals": 1,
+            "pred_is_penalty": true,
+            "pred_home_penalties": 4,
+            "pred_away_penalties": 2,
+            "home_penalties": 2,
+            "away_penalties": 3
+        },
+        {
+            "match_id": "r32_5",
+            "home": {
+                "name": "Portugal",
+                "code": "xx"
+            },
+            "away": {
+                "name": "Croatia",
+                "code": "xx"
+            },
+            "status": "completed",
+            "actual_home_goals": 2,
+            "actual_away_goals": 1,
+            "winner": "home",
+            "is_penalty": false,
+            "win_prob": 80.38408717059595,
+            "loss_prob": 19.615912829404053,
+            "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance.",
+            "pred_home_goals": 2,
+            "pred_away_goals": 1,
+            "pred_is_penalty": false,
+            "pred_home_penalties": 0,
+            "pred_away_penalties": 0
+        },
+        {
+            "match_id": "r32_6",
+            "home": {
+                "name": "Spain",
+                "code": "xx"
+            },
+            "away": {
+                "name": "Austria",
+                "code": "xx"
+            },
+            "status": "completed",
+            "actual_home_goals": 3,
+            "actual_away_goals": 0,
+            "winner": "home",
+            "is_penalty": false,
+            "win_prob": 87.07224305646804,
+            "loss_prob": 12.927756943531952,
+            "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance.",
+            "pred_home_goals": 2,
+            "pred_away_goals": 1,
+            "pred_is_penalty": false,
+            "pred_home_penalties": 0,
+            "pred_away_penalties": 0
+        },
+        {
+            "match_id": "r32_7",
+            "home": {
+                "name": "USA",
+                "code": "xx"
+            },
+            "away": {
+                "name": "Bosnia and Herzegovina",
+                "code": "xx"
+            },
+            "status": "completed",
+            "actual_home_goals": 2,
+            "actual_away_goals": 0,
+            "winner": "home",
+            "is_penalty": false,
+            "win_prob": 75.43640825993252,
+            "loss_prob": 24.56359174006748,
+            "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance.",
+            "pred_home_goals": 2,
+            "pred_away_goals": 1,
+            "pred_is_penalty": false,
+            "pred_home_penalties": 0,
+            "pred_away_penalties": 0
+        },
+        {
+            "match_id": "r32_8",
+            "home": {
+                "name": "Belgium",
+                "code": "xx"
+            },
+            "away": {
+                "name": "Senegal",
+                "code": "xx"
+            },
+            "status": "completed",
+            "actual_home_goals": 3,
+            "actual_away_goals": 2,
+            "winner": "home",
+            "is_penalty": false,
+            "win_prob": 72.03166098110692,
+            "loss_prob": 27.96833901889307,
+            "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance.",
+            "pred_home_goals": 2,
+            "pred_away_goals": 1,
+            "pred_is_penalty": false,
+            "pred_home_penalties": 0,
+            "pred_away_penalties": 0
+        },
+        {
+            "match_id": "r32_9",
+            "home": {
+                "name": "Brazil",
+                "code": "xx"
+            },
+            "away": {
+                "name": "Japan",
+                "code": "xx"
+            },
+            "status": "completed",
+            "actual_home_goals": 2,
+            "actual_away_goals": 1,
+            "winner": "home",
+            "is_penalty": false,
+            "win_prob": 76.25698273423227,
+            "loss_prob": 23.743017265767726,
+            "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance.",
+            "pred_home_goals": 2,
+            "pred_away_goals": 1,
+            "pred_is_penalty": false,
+            "pred_home_penalties": 0,
+            "pred_away_penalties": 0
+        },
+        {
+            "match_id": "r32_10",
+            "home": {
+                "name": "Norway",
+                "code": "xx"
+            },
+            "away": {
+                "name": "Ivory Coast",
+                "code": "xx"
+            },
+            "status": "completed",
+            "actual_home_goals": 2,
+            "actual_away_goals": 1,
+            "winner": "home",
+            "is_penalty": false,
+            "win_prob": 39.02759509811917,
+            "loss_prob": 60.97240490188083,
+            "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance.",
+            "pred_home_goals": 1,
+            "pred_away_goals": 2,
+            "pred_is_penalty": false,
+            "pred_home_penalties": 0,
+            "pred_away_penalties": 0
+        },
+        {
+            "match_id": "r32_11",
+            "home": {
+                "name": "Mexico",
+                "code": "xx"
+            },
+            "away": {
+                "name": "Ecuador",
+                "code": "xx"
+            },
+            "status": "completed",
+            "actual_home_goals": 2,
+            "actual_away_goals": 0,
+            "winner": "home",
+            "is_penalty": false,
+            "win_prob": 82.28022058276993,
+            "loss_prob": 17.719779417230068,
+            "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance.",
+            "pred_home_goals": 2,
+            "pred_away_goals": 1,
+            "pred_is_penalty": false,
+            "pred_home_penalties": 0,
+            "pred_away_penalties": 0
+        },
+        {
+            "match_id": "r32_12",
+            "home": {
+                "name": "England",
+                "code": "xx"
+            },
+            "away": {
+                "name": "DR Congo",
+                "code": "xx"
+            },
+            "status": "completed",
+            "actual_home_goals": 2,
+            "actual_away_goals": 1,
+            "winner": "home",
+            "is_penalty": false,
+            "win_prob": 88.0299245405781,
+            "loss_prob": 11.970075459421906,
+            "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance.",
+            "pred_home_goals": 2,
+            "pred_away_goals": 1,
+            "pred_is_penalty": false,
+            "pred_home_penalties": 0,
+            "pred_away_penalties": 0
+        },
+        {
+            "match_id": "r32_13",
+            "home": {
+                "name": "Argentina",
+                "code": "xx"
+            },
+            "away": {
+                "name": "Cape Verde",
+                "code": "xx"
+            },
+            "status": "completed",
+            "actual_home_goals": 3,
+            "actual_away_goals": 2,
+            "winner": "home",
+            "is_penalty": false,
+            "win_prob": 94.5885004533931,
+            "loss_prob": 5.411499546606896,
+            "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance.",
+            "pred_home_goals": 2,
+            "pred_away_goals": 1,
+            "pred_is_penalty": false,
+            "pred_home_penalties": 0,
+            "pred_away_penalties": 0
+        },
+        {
+            "match_id": "r32_14",
+            "home": {
+                "name": "Egypt",
+                "code": "xx"
+            },
+            "away": {
+                "name": "Australia",
+                "code": "xx"
+            },
+            "status": "completed",
+            "actual_home_goals": 1,
+            "actual_away_goals": 1,
+            "winner": "home",
+            "is_penalty": true,
+            "win_prob": 63.27116097303023,
+            "loss_prob": 36.72883902696977,
+            "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance.",
+            "pred_home_goals": 2,
+            "pred_away_goals": 1,
+            "pred_is_penalty": false,
+            "pred_home_penalties": 0,
+            "pred_away_penalties": 0,
+            "home_penalties": 4,
+            "away_penalties": 2
+        },
+        {
+            "match_id": "r32_15",
+            "home": {
+                "name": "Switzerland",
+                "code": "xx"
+            },
+            "away": {
+                "name": "Algeria",
+                "code": "xx"
+            },
+            "status": "completed",
+            "actual_home_goals": 2,
+            "actual_away_goals": 0,
+            "winner": "home",
+            "is_penalty": false,
+            "win_prob": 50.48543740687788,
+            "loss_prob": 49.51456259312213,
+            "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance.",
+            "pred_home_goals": 2,
+            "pred_away_goals": 1,
+            "pred_is_penalty": false,
+            "pred_home_penalties": 0,
+            "pred_away_penalties": 0
+        },
+        {
+            "match_id": "r32_16",
+            "home": {
+                "name": "Colombia",
+                "code": "xx"
+            },
+            "away": {
+                "name": "Ghana",
+                "code": "xx"
+            },
+            "status": "completed",
+            "actual_home_goals": 1,
+            "actual_away_goals": 0,
+            "winner": "home",
+            "is_penalty": false,
+            "win_prob": 78.44474740842908,
+            "loss_prob": 21.555252591570916,
+            "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance.",
+            "pred_home_goals": 2,
+            "pred_away_goals": 1,
+            "pred_is_penalty": false,
+            "pred_home_penalties": 0,
+            "pred_away_penalties": 0
+        }
+    ],
+    "r16": [
+        {
+            "match_id": "r16_1",
+            "status": "completed",
+            "winner": "away",
+            "home": {
+                "name": "Paraguay",
+                "code": "xx"
+            },
+            "away": {
+                "name": "France",
+                "code": "xx"
+            },
+            "win_prob": 4.723502365538138,
+            "loss_prob": 95.27649763446186,
+            "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance.",
+            "pred_home_goals": 1,
+            "pred_away_goals": 3,
+            "pred_is_penalty": false,
+            "pred_home_penalties": 0,
+            "pred_away_penalties": 0,
+            "draw_prob": 0.0,
+            "actual_home_goals": 0,
+            "actual_away_goals": 1,
+            "is_penalty": false
+        },
+        {
+            "match_id": "r16_2",
+            "status": "completed",
+            "winner": "away",
+            "home": {
+                "name": "Canada",
+                "code": "xx"
+            },
+            "away": {
+                "name": "Morocco",
+                "code": "xx"
+            },
+            "win_prob": 27.100271282870814,
+            "loss_prob": 72.8997287171292,
+            "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance.",
+            "pred_home_goals": 1,
+            "pred_away_goals": 2,
+            "pred_is_penalty": false,
+            "pred_home_penalties": 0,
+            "pred_away_penalties": 0,
+            "draw_prob": 0.0,
+            "actual_home_goals": 0,
+            "actual_away_goals": 3,
+            "is_penalty": false
+        },
+        {
+            "match_id": "r16_3",
+            "status": "upcoming",
+            "winner": null,
+            "home": {
+                "name": "Portugal",
+                "code": "xx"
+            },
+            "away": {
+                "name": "Spain",
+                "code": "xx"
+            },
+            "win_prob": 29.233510707688552,
+            "loss_prob": 70.76648929231143,
+            "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance.",
+            "pred_home_goals": 1,
+            "pred_away_goals": 1,
+            "pred_is_penalty": true,
+            "pred_home_penalties": 3,
+            "pred_away_penalties": 5,
+            "draw_prob": 0.0
+        },
+        {
+            "match_id": "r16_4",
+            "status": "upcoming",
+            "winner": null,
+            "home": {
+                "name": "USA",
+                "code": "xx"
+            },
+            "away": {
+                "name": "Belgium",
+                "code": "xx"
+            },
+            "win_prob": 25.30282561252461,
+            "loss_prob": 74.69717438747539,
+            "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance.",
+            "pred_home_goals": 1,
+            "pred_away_goals": 2,
+            "pred_is_penalty": false,
+            "pred_home_penalties": 0,
+            "pred_away_penalties": 0,
+            "draw_prob": 0.0
+        },
+        {
+            "match_id": "r16_5",
+            "status": "completed",
+            "winner": "away",
+            "home": {
+                "name": "Brazil",
+                "code": "xx"
+            },
+            "away": {
+                "name": "Norway",
+                "code": "xx"
+            },
+            "win_prob": 66.14457863165204,
+            "loss_prob": 33.85542136834797,
+            "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance.",
+            "pred_home_goals": 2,
+            "pred_away_goals": 1,
+            "pred_is_penalty": false,
+            "pred_home_penalties": 0,
+            "pred_away_penalties": 0,
+            "draw_prob": 0.0,
+            "actual_home_goals": 1,
+            "actual_away_goals": 2,
+            "is_penalty": false
+        },
+        {
+            "match_id": "r16_6",
+            "status": "completed",
+            "winner": "away",
+            "home": {
+                "name": "Mexico",
+                "code": "xx"
+            },
+            "away": {
+                "name": "England",
+                "code": "xx"
+            },
+            "win_prob": 49.08789356501387,
+            "loss_prob": 50.91210643498613,
+            "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance.",
+            "pred_home_goals": 1,
+            "pred_away_goals": 1,
+            "pred_is_penalty": true,
+            "pred_home_penalties": 3,
+            "pred_away_penalties": 5,
+            "draw_prob": 0.0,
+            "actual_home_goals": 2,
+            "actual_away_goals": 3,
+            "is_penalty": false
+        },
+        {
+            "match_id": "r16_7",
+            "status": "upcoming",
+            "winner": null,
+            "home": {
+                "name": "Argentina",
+                "code": "xx"
+            },
+            "away": {
+                "name": "Egypt",
+                "code": "xx"
+            },
+            "win_prob": 80.51420880532791,
+            "loss_prob": 19.485791194672082,
+            "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance.",
+            "pred_home_goals": 2,
+            "pred_away_goals": 1,
+            "pred_is_penalty": false,
+            "pred_home_penalties": 0,
+            "pred_away_penalties": 0,
+            "draw_prob": 0.0
+        },
+        {
+            "match_id": "r16_8",
+            "status": "upcoming",
+            "winner": null,
+            "home": {
+                "name": "Switzerland",
+                "code": "xx"
+            },
+            "away": {
+                "name": "Colombia",
+                "code": "xx"
+            },
+            "win_prob": 48.42406820416457,
+            "loss_prob": 51.57593179583543,
+            "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance.",
+            "pred_home_goals": 1,
+            "pred_away_goals": 2,
+            "pred_is_penalty": false,
+            "pred_home_penalties": 0,
+            "pred_away_penalties": 0,
+            "draw_prob": 0.0
+        }
+    ],
+    "qf": [
+        {
+            "match_id": "qf_1",
+            "status": "upcoming",
+            "winner": null,
+            "home": {
+                "name": "France",
+                "code": "xx"
+            },
+            "away": {
+                "name": "Morocco",
+                "code": "xx"
+            },
+            "win_prob": 67.72046672979431,
+            "loss_prob": 32.279533270205704,
+            "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance.",
+            "pred_home_goals": 2,
+            "pred_away_goals": 0,
+            "pred_is_penalty": false,
+            "pred_home_penalties": 0,
+            "pred_away_penalties": 0,
+            "draw_prob": 0.0
+        },
+        {
+            "match_id": "qf_2",
+            "status": "tbd",
+            "winner": null,
+            "home": {
+                "name": "TBD",
+                "code": "xx"
+            },
+            "away": {
+                "name": "TBD",
+                "code": "xx"
+            }
+        },
+        {
+            "match_id": "qf_3",
+            "status": "upcoming",
+            "winner": null,
+            "home": {
+                "name": "Norway",
+                "code": "xx"
+            },
+            "away": {
+                "name": "England",
+                "code": "xx"
+            },
+            "win_prob": 18.587361297696717,
+            "loss_prob": 81.41263870230328,
+            "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance.",
+            "pred_home_goals": 1,
+            "pred_away_goals": 2,
+            "pred_is_penalty": false,
+            "pred_home_penalties": 0,
+            "pred_away_penalties": 0,
+            "draw_prob": 0.0
+        },
+        {
+            "match_id": "qf_4",
+            "status": "tbd",
+            "winner": null,
+            "home": {
+                "name": "TBD",
+                "code": "xx"
+            },
+            "away": {
+                "name": "TBD",
+                "code": "xx"
+            }
+        }
+    ],
+    "sf": [
+        {
+            "match_id": "sf_1",
+            "status": "tbd",
+            "winner": null,
+            "home": {
+                "name": "TBD",
+                "code": "xx"
+            },
+            "away": {
+                "name": "TBD",
+                "code": "xx"
+            }
+        },
+        {
+            "match_id": "sf_2",
+            "status": "tbd",
+            "winner": null,
+            "home": {
+                "name": "TBD",
+                "code": "xx"
+            },
+            "away": {
+                "name": "TBD",
+                "code": "xx"
+            }
+        }
+    ],
+    "final": [
+        {
+            "match_id": "final_1",
+            "status": "tbd",
+            "winner": null,
+            "home": {
+                "name": "TBD",
+                "code": "xx"
+            },
+            "away": {
+                "name": "TBD",
+                "code": "xx"
+            }
+        }
+    ]
+}

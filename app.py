@@ -457,7 +457,12 @@ with tab_bracket:
                 st.session_state.bracket_data = json.load(f)
         else:
             st.warning("No saved bracket found. Loading official base structure.")
-            st.session_state.bracket_data = bracket_component.build_initial_bracket()
+            bd = bracket_component.build_initial_bracket()
+            df = bracket_component.load_group_standings_df()
+            st.session_state.bracket_data = bracket_component.populate_r32_teams(bd, df)
+            
+            with open("bracket_state.json", "w") as f:
+                json.dump(st.session_state.bracket_data, f, indent=4)
 
 
     if "bracket_data" in st.session_state:
@@ -550,13 +555,15 @@ with tab_bracket:
         st.divider()
 
         # ── Existing bracket controls ─────────────────────────────────────────
-        if st.button("Reset Bracket (Clear Saves)"):
+        if st.button("🚨 Hard Reset", type="primary"):
             if os.path.exists("bracket_state.json"):
                 os.remove("bracket_state.json")
-            del st.session_state.bracket_data
+            if "bracket_data" in st.session_state:
+                del st.session_state.bracket_data
             st.rerun()
 
         bracket_component.render_data_entry_ui(st.session_state.bracket_data, historical_df, models)
+        bracket_component.render_team_override_ui(st.session_state.bracket_data, all_teams, historical_df, models)
         bracket_component.render_bracket(st.session_state.bracket_data)
 
 

@@ -94,7 +94,7 @@ def map_third_place_teams(third_place_teams):
             if t_idx not in used_indices:
                 if team["group"] in slot["allowed"]:
                     # Attempt this path
-                    used_indices.add(t_idx)
+                    used_indices.append(t_idx)
                     current_assignment[slot["match_id"]] = team
                     
                     result = solve(slot_idx + 1, current_assignment, used_indices)
@@ -107,7 +107,7 @@ def map_third_place_teams(third_place_teams):
                     
         return None
         
-    return solve(0, {}, set())
+    return solve(0, {}, [])
 
 
 def resolve_qualified_teams(group_standings_df):
