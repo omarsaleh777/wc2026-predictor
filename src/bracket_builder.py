@@ -220,10 +220,35 @@ def generate_bracket_data(resolved_matchups, historical_df, models=None):
                 match["loss_prob"] = 50.0
             match["draw_prob"] = 0.0
             match["reasoning"] = pred.get("reasoning", "Awaiting AI Analysis")
+            
+            # Extract predicted goals
+            h_goals = pred.get("home_goals", 0)
+            a_goals = pred.get("away_goals", 0)
+            match["pred_home_goals"] = h_goals
+            match["pred_away_goals"] = a_goals
+            match["pred_is_penalty"] = False
+            match["pred_home_penalties"] = 0
+            match["pred_away_penalties"] = 0
+            
+            # Simulate Penalty Shootout if tied
+            if h_goals == a_goals:
+                match["pred_is_penalty"] = True
+                # The team with the higher advancement probability wins on pens
+                if w_prob >= l_prob:
+                    match["pred_home_penalties"] = 4
+                    match["pred_away_penalties"] = 2
+                else:
+                    match["pred_home_penalties"] = 3
+                    match["pred_away_penalties"] = 5
         else:
             match["win_prob"] = 50.0
             match["draw_prob"] = 0.0
             match["loss_prob"] = 50.0
             match["reasoning"] = "Awaiting match resolution"
+            match["pred_home_goals"] = "-"
+            match["pred_away_goals"] = "-"
+            match["pred_is_penalty"] = False
+            match["pred_home_penalties"] = 0
+            match["pred_away_penalties"] = 0
 
     return bracket_data

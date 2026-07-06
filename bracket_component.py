@@ -718,11 +718,17 @@ function matchCard(m, delay) {
   if (isCompleted) {
     hScoreStr = m.actual_home_goals !== undefined ? m.actual_home_goals : '-';
     aScoreStr = m.actual_away_goals !== undefined ? m.actual_away_goals : '-';
-  }
-  
-  if (isCompleted && m.is_penalty) {
-    if (hw) hScoreStr += '<span class="penalty-score">(' + (m.home_penalties||0) + ')</span>';
-    if (aw) aScoreStr += '<span class="penalty-score">(' + (m.away_penalties||0) + ')</span>';
+    if (m.is_penalty) {
+      if (hw) hScoreStr += '<span class="penalty-score">(' + (m.home_penalties||0) + ')</span>';
+      if (aw) aScoreStr += '<span class="penalty-score">(' + (m.away_penalties||0) + ')</span>';
+    }
+  } else if (isUpcoming) {
+    hScoreStr = m.pred_home_goals !== undefined ? m.pred_home_goals : '';
+    aScoreStr = m.pred_away_goals !== undefined ? m.pred_away_goals : '';
+    if (m.pred_is_penalty) {
+      hScoreStr += '<span class="penalty-score">(' + (m.pred_home_penalties||0) + ')</span>';
+      aScoreStr += '<span class="penalty-score">(' + (m.pred_away_penalties||0) + ')</span>';
+    }
   }
 
   var s = '<div class="match-card' + (isTbd ? ' tbd' : '') + (hasW ? ' has-winner' : '') + '" style="animation-delay:' + delay + 's" data-id="' + (m.match_id || '') + '">';
