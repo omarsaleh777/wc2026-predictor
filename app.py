@@ -475,36 +475,14 @@ with tab_bracket:
         if not df.empty:
             if "resolved_matchups" not in st.session_state:
                 st.session_state.resolved_matchups = bracket_builder.resolve_qualified_teams(df)
-            
-            with st.expander("⚙️ Manual Matchup Override (Pre-Bracket Generation)", expanded=True):
-                st.info("Review and manually swap teams before running the ML predictions.")
-                
-                # Extract all unique teams for the dropdowns
-                all_teams_list = sorted(df["Team"].unique().tolist())
-                
-                # Configure the data editor columns to use Selectbox
-                df_matchups = pd.DataFrame(st.session_state.resolved_matchups)
-                edited_df = st.data_editor(
-                    df_matchups, 
-                    hide_index=True, 
-                    use_container_width=True,
-                    column_config={
-                        "home": st.column_config.SelectboxColumn("Home Team", options=all_teams_list, required=True),
-                        "away": st.column_config.SelectboxColumn("Away Team", options=all_teams_list, required=True),
-                        "match_id": st.column_config.TextColumn("Match ID", disabled=True)
-                    }
-                )
-                
-                if st.button("Generate Bracket & Run Predictions", type="primary"):
-                    st.session_state.resolved_matchups = edited_df.to_dict('records')
-                    st.session_state.bracket_data = bracket_builder.generate_bracket_data(
-                        st.session_state.resolved_matchups, 
-                        historical_df, 
-                        models
-                    )
-                    with open("bracket_state.json", "w") as f:
-                        json.dump(st.session_state.bracket_data, f)
-                    st.rerun()
+            # Automatically build initial bracket if not already loaded
+            st.session_state.bracket_data = bracket_builder.generate_bracket_data(
+                st.session_state.resolved_matchups, 
+                historical_df, 
+                models
+            )
+            with open("bracket_state.json", "w") as f:
+                json.dump(st.session_state.bracket_data, f)
         else:
             st.warning("Group stage not complete. Using fallback seeding.")
             # Fallback

@@ -133,10 +133,34 @@ def process_match_result(bracket_data, match_id, home_goals, away_goals, is_pena
                     next_match["win_prob"] = 50.0
                     next_match["loss_prob"] = 50.0
                 next_match["reasoning"] = pred.get("reasoning", "Awaiting AI Analysis")
+                
+                # Extract predicted goals and simulate penalties for ties
+                h_goals = pred.get("home_goals", 0)
+                a_goals = pred.get("away_goals", 0)
+                next_match["pred_home_goals"] = h_goals
+                next_match["pred_away_goals"] = a_goals
+                next_match["pred_is_penalty"] = False
+                next_match["pred_home_penalties"] = 0
+                next_match["pred_away_penalties"] = 0
+                
+                if h_goals == a_goals:
+                    next_match["pred_is_penalty"] = True
+                    # Higher win probability takes the penalty shootout
+                    if w_prob >= l_prob:
+                        next_match["pred_home_penalties"] = 4
+                        next_match["pred_away_penalties"] = 2
+                    else:
+                        next_match["pred_home_penalties"] = 3
+                        next_match["pred_away_penalties"] = 5
             else:
                 next_match["win_prob"] = 50.0
                 next_match["loss_prob"] = 50.0
                 next_match["reasoning"] = "Awaiting match resolution"
+                next_match["pred_home_goals"] = "-"
+                next_match["pred_away_goals"] = "-"
+                next_match["pred_is_penalty"] = False
+                next_match["pred_home_penalties"] = 0
+                next_match["pred_away_penalties"] = 0
             next_match["draw_prob"] = 0.0
 
     return bracket_data
