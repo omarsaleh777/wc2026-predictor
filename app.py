@@ -450,43 +450,15 @@ with tab_groups:
 with tab_bracket:
     st.markdown("### 🏆 Knockout Stage Bracket")
     
-    # 1. Build DataFrame from Standings
+    # 1. Initialize Bracket Data State
     if "bracket_data" not in st.session_state:
         if os.path.exists("bracket_state.json"):
             with open("bracket_state.json", "r") as f:
                 st.session_state.bracket_data = json.load(f)
         else:
-            standings = load_standings()
-        rows = []
-        for group_name, teams in standings.items():
-            if teams:
-                sorted_teams = sort_group(teams)
-                for team_name, stats in sorted_teams:
-                    rows.append({
-                        "Group": group_name,
-                        "Team": team_name,
-                        "Pts": stats["pts"],
-                        "GD": stats["gd"],
-                        "GF": stats["gf"]
-                    })
-        
-        df = pd.DataFrame(rows)
-        
-        if not df.empty:
-            if "resolved_matchups" not in st.session_state:
-                st.session_state.resolved_matchups = bracket_builder.resolve_qualified_teams(df)
-            # Automatically build initial bracket if not already loaded
-            st.session_state.bracket_data = bracket_builder.generate_bracket_data(
-                st.session_state.resolved_matchups, 
-                historical_df, 
-                models
-            )
-            with open("bracket_state.json", "w") as f:
-                json.dump(st.session_state.bracket_data, f)
-        else:
-            st.warning("Group stage not complete. Using fallback seeding.")
-            # Fallback
+            st.warning("No saved bracket found. Loading official base structure.")
             st.session_state.bracket_data = bracket_component.build_initial_bracket()
+
 
     if "bracket_data" in st.session_state:
 
