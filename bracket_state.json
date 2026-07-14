@@ -444,8 +444,8 @@
         },
         {
             "match_id": "r16_3",
-            "status": "upcoming",
-            "winner": null,
+            "status": "completed",
+            "winner": "away",
             "home": {
                 "name": "Portugal",
                 "code": "xx"
@@ -462,12 +462,15 @@
             "pred_is_penalty": true,
             "pred_home_penalties": 3,
             "pred_away_penalties": 5,
-            "draw_prob": 0.0
+            "draw_prob": 0.0,
+            "actual_home_goals": 0,
+            "actual_away_goals": 1,
+            "is_penalty": false
         },
         {
             "match_id": "r16_4",
-            "status": "upcoming",
-            "winner": null,
+            "status": "completed",
+            "winner": "away",
             "home": {
                 "name": "USA",
                 "code": "xx"
@@ -484,7 +487,10 @@
             "pred_is_penalty": false,
             "pred_home_penalties": 0,
             "pred_away_penalties": 0,
-            "draw_prob": 0.0
+            "draw_prob": 0.0,
+            "actual_home_goals": 1,
+            "actual_away_goals": 4,
+            "is_penalty": false
         },
         {
             "match_id": "r16_5",
@@ -538,8 +544,8 @@
         },
         {
             "match_id": "r16_7",
-            "status": "upcoming",
-            "winner": null,
+            "status": "completed",
+            "winner": "home",
             "home": {
                 "name": "Argentina",
                 "code": "xx"
@@ -556,12 +562,15 @@
             "pred_is_penalty": false,
             "pred_home_penalties": 0,
             "pred_away_penalties": 0,
-            "draw_prob": 0.0
+            "draw_prob": 0.0,
+            "actual_home_goals": 3,
+            "actual_away_goals": 2,
+            "is_penalty": false
         },
         {
             "match_id": "r16_8",
-            "status": "upcoming",
-            "winner": null,
+            "status": "completed",
+            "winner": "home",
             "home": {
                 "name": "Switzerland",
                 "code": "xx"
@@ -578,14 +587,19 @@
             "pred_is_penalty": false,
             "pred_home_penalties": 0,
             "pred_away_penalties": 0,
-            "draw_prob": 0.0
+            "draw_prob": 0.0,
+            "actual_home_goals": 0,
+            "actual_away_goals": 0,
+            "is_penalty": true,
+            "home_penalties": 4,
+            "away_penalties": 3
         }
     ],
     "qf": [
         {
             "match_id": "qf_1",
-            "status": "upcoming",
-            "winner": null,
+            "status": "completed",
+            "winner": "home",
             "home": {
                 "name": "France",
                 "code": "xx"
@@ -602,25 +616,40 @@
             "pred_is_penalty": false,
             "pred_home_penalties": 0,
             "pred_away_penalties": 0,
-            "draw_prob": 0.0
+            "draw_prob": 0.0,
+            "actual_home_goals": 2,
+            "actual_away_goals": 0,
+            "is_penalty": false
         },
         {
             "match_id": "qf_2",
-            "status": "tbd",
-            "winner": null,
+            "status": "completed",
+            "winner": "home",
             "home": {
-                "name": "TBD",
+                "name": "Spain",
                 "code": "xx"
             },
             "away": {
-                "name": "TBD",
+                "name": "Belgium",
                 "code": "xx"
-            }
+            },
+            "win_prob": 62.92466646120643,
+            "loss_prob": 37.07533353879357,
+            "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance.",
+            "pred_home_goals": 2,
+            "pred_away_goals": 1,
+            "pred_is_penalty": false,
+            "pred_home_penalties": 0,
+            "pred_away_penalties": 0,
+            "draw_prob": 0.0,
+            "actual_home_goals": 2,
+            "actual_away_goals": 1,
+            "is_penalty": false
         },
         {
             "match_id": "qf_3",
-            "status": "upcoming",
-            "winner": null,
+            "status": "completed",
+            "winner": "away",
             "home": {
                 "name": "Norway",
                 "code": "xx"
@@ -637,48 +666,81 @@
             "pred_is_penalty": false,
             "pred_home_penalties": 0,
             "pred_away_penalties": 0,
-            "draw_prob": 0.0
+            "draw_prob": 0.0,
+            "actual_home_goals": 1,
+            "actual_away_goals": 2,
+            "is_penalty": false
         },
         {
             "match_id": "qf_4",
-            "status": "tbd",
-            "winner": null,
+            "status": "completed",
+            "winner": "home",
             "home": {
-                "name": "TBD",
+                "name": "Argentina",
                 "code": "xx"
             },
             "away": {
-                "name": "TBD",
+                "name": "Switzerland",
                 "code": "xx"
-            }
+            },
+            "win_prob": 87.0886083039655,
+            "loss_prob": 12.911391696034503,
+            "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance.",
+            "pred_home_goals": 2,
+            "pred_away_goals": 1,
+            "pred_is_penalty": false,
+            "pred_home_penalties": 0,
+            "pred_away_penalties": 0,
+            "draw_prob": 0.0,
+            "actual_home_goals": 3,
+            "actual_away_goals": 1,
+            "is_penalty": false
         }
     ],
     "sf": [
         {
             "match_id": "sf_1",
-            "status": "tbd",
+            "status": "upcoming",
             "winner": null,
             "home": {
-                "name": "TBD",
+                "name": "France",
                 "code": "xx"
             },
             "away": {
-                "name": "TBD",
+                "name": "Spain",
                 "code": "xx"
-            }
+            },
+            "win_prob": 37.749287339025344,
+            "loss_prob": 62.25071266097465,
+            "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance.",
+            "pred_home_goals": 1,
+            "pred_away_goals": 2,
+            "pred_is_penalty": false,
+            "pred_home_penalties": 0,
+            "pred_away_penalties": 0,
+            "draw_prob": 0.0
         },
         {
             "match_id": "sf_2",
-            "status": "tbd",
+            "status": "upcoming",
             "winner": null,
             "home": {
-                "name": "TBD",
+                "name": "England",
                 "code": "xx"
             },
             "away": {
-                "name": "TBD",
+                "name": "Argentina",
                 "code": "xx"
-            }
+            },
+            "win_prob": 43.088234172147864,
+            "loss_prob": 56.911765827852136,
+            "reasoning": "Prediction based on recent goal-scoring efficiency and tight competitive balance.",
+            "pred_home_goals": 1,
+            "pred_away_goals": 2,
+            "pred_is_penalty": false,
+            "pred_home_penalties": 0,
+            "pred_away_penalties": 0,
+            "draw_prob": 0.0
         }
     ],
     "final": [
